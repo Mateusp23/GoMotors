@@ -30,7 +30,7 @@ export const THEME = extendTheme({
   },
   fonts: {
     heading: 'Raleway_700Bold',
-    body: 'Raleway_400Regular,',
+    body: 'Raleway_400Regular',
   },
   fontSizes: {
     xs: 12,

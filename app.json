@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "GoMotors",
+    "slug": "GoMotors",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

@@ -6,7 +6,7 @@ import { Splash } from './src/screens/Splash';
 import { Loading } from './src/components/Loading';
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Raleway_400Regular, 
     Raleway_700Bold
   });

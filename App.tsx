@@ -2,7 +2,7 @@ import React from 'react';
 import { THEME } from './src/styles/theme';
 import { NativeBaseProvider, StatusBar, Heading } from 'native-base';
 import { useFonts, Raleway_400Regular, Raleway_700Bold } from '@expo-google-fonts/raleway';
-import { Splash } from './src/screens/Splash';
+import { SignIn } from './src/screens/SingIn';
 import { Loading } from './src/components/Loading';
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      { fontsLoaded ? <Splash /> : <Loading /> }
+      { fontsLoaded ? <SignIn /> : <Loading /> }
     </NativeBaseProvider>
   );
 }

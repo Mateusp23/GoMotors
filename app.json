@@ -3,6 +3,11 @@
     "name": "GoMotors",
     "slug": "GoMotors",
     "version": "1.0.0",
+    "splash": {
+      "image": "./src/assets/splash-goMotors.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#202024"
+    },
     "assetBundlePatterns": [
       "**/*"
     ]

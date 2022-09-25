@@ -25,7 +25,7 @@ export function ButtonSignIn() {
         h={14}
         fontSize="sm"
         rounded="sm"
-        _pressed={{ bg: "gray.700" }}
+        _pressed={{ bg: "primary.400" }}
         mt={4}
       >
         <HStack height="full" alignItems="center" justifyContent="center">

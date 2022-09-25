@@ -33,7 +33,7 @@ export function Header({ isBackScreen = true, title, ...rest }: Props) {
       }
       
       <Heading 
-        color="gray.100" 
+        color="white" 
         textAlign="center" 
         fontSize="xl"
         flex={1}

@@ -4,6 +4,7 @@ import { NativeBaseProvider, StatusBar, Heading } from 'native-base';
 import { useFonts, Raleway_400Regular, Raleway_700Bold } from '@expo-google-fonts/raleway';
 import { SignIn } from './src/screens/SingIn';
 import { Loading } from './src/components/Loading';
+import { UserInformation } from './src/screens/UserInformation';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,7 +19,8 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      { fontsLoaded ? <SignIn /> : <Loading /> }
+      {/* { fontsLoaded ? <SignIn /> : <Loading /> } */}
+      { fontsLoaded ? <UserInformation /> : <Loading /> }
     </NativeBaseProvider>
   );
 }

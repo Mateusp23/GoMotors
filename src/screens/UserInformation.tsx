@@ -1,8 +1,11 @@
 import React from 'react';
-import { Heading } from 'native-base';
+import { VStack } from 'native-base';
+import { Header } from '../components/Header';
 
 export function UserInformation() {
   return (
-    <Heading>Área de atuação</Heading>
+    <VStack flex={1} p={6} bg="gray.600">
+      <Header isBackScreen={false} title="Informe sua atuação" />
+    </VStack>    
   );
 }

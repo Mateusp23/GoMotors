@@ -11,7 +11,6 @@ export function SignIn() {
     <Center height="full" bg="gray.600">
       <Logo />
       <Box width="full" p={6}>
-
         <Text color="white" textAlign="center" fontSize="xl" mt={3} mb={3}>
           Acesse sua conta
         </Text>

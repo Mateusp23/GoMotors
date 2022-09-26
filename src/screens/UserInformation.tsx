@@ -9,7 +9,6 @@ export function UserInformation() {
     <VStack flex={1} p={6} bg="gray.600">
       <Header isBackScreen={false} title="Informe sua atuação" />
       <Box width="full">
-        {/* <Button bg="primary.700" title="Entregador" color="white"/> */}
         <ButtonInformation />
       </Box>
     </VStack>    

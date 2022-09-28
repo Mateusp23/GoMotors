@@ -1,15 +1,32 @@
 import React, { useState } from "react";
-import { Button as ButtonInfo, Heading, Icon, useTheme, HStack, Box, VStack, Text, Checkbox } from 'native-base';
-import { ForkKnife } from 'phosphor-react-native';
+import { 
+  Button as ButtonInfo, 
+  Heading, 
+  Icon, 
+  useTheme, 
+  HStack, 
+  Box, 
+  VStack, 
+  Text, 
+  Checkbox,
+  Select 
+} from 'native-base';
+import { ForkKnife, House, CaretDown } from 'phosphor-react-native';
 import IconMoto from '../assets/icon-moto.svg';
+import IconLogoInformation from '../assets/logo-screen-info.svg';
+import { Button } from './Button';
 
 export function ButtonInformation() {
   const [isButtonSelected, setIsButtonSelected ] = useState(false);
-  const [groupValue, setGroupValue] = React.useState(["torres"]);
+  const [isCitySelected, setIsCitySelected ] = useState("");
   const { colors } = useTheme();
 
   const handleShowInfos = () => {
     setIsButtonSelected(true);
+  }
+
+  const handleShowCities = () => {
+    setIsCitySelected(true);
   }
 
   return (
@@ -57,34 +74,39 @@ export function ButtonInformation() {
               fontSize="xl"
             >
               Informe sua cidade de atuação
-            </Heading>
-            <HStack mt={6}>
-              <Checkbox.Group colorScheme="orange" defaultValue={groupValue} accessibilityLabel="city" 
-                onChange={() => {}}
-              >
-                <Checkbox value="torres" my="2">
-                  <Text fontSize="md" color="white">
-                    Torres - RS
-                  </Text>
-                </Checkbox>
-                <Checkbox value="tc" my="2">
-                  <Text fontSize="md" color="white">
-                    Três Cachoeiras - RS
-                  </Text>
-                </Checkbox>
-                <Checkbox value="arroio" my="2">
-                  <Text fontSize="md" color="white">
-                    Arroio do Sal - RS
-                  </Text>
-                </Checkbox>               
-              </Checkbox.Group>
-            </HStack>
+            </Heading>     
+
+            <Select 
+              selectedValue={isCitySelected} 
+              minWidth="200" 
+              accessibilityLabel="Selecione uma cidade" 
+              placeholder="Selecione uma cidade"
+              _selectedItem={{
+                color: "primary.700",
+              }} 
+              _item={colors.primary}
+              placeholderTextColor={colors.primary[700]}
+              color={colors.primary[700]}
+              fontSize="md" 
+              mt={6} 
+              onValueChange={itemValue => setIsCitySelected(itemValue)}
+            >
+              <Select.Item shadow={1} label="Torres - RS" value="torres" />
+              <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
+              <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
+            </Select>
+
+              {
+                isCitySelected && (
+                  <VStack mt={12} width="full" alignItems="center" justifyContent="center">
+                    <IconLogoInformation />
+                    <Button bgColor="primary.700" color="white" title="Confirmar" mt={8} />
+                  </VStack>
+                )
+              }         
           </VStack>
         )
       }
     </>
   );
 }
-
-
-

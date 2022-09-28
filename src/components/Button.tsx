@@ -11,6 +11,7 @@ export function Button({ title, bgColor, color, ...rest }: Props) {
     <ButtonNativeBase 
       bg={bgColor}
       h={14}
+      width="full"
       fontSize="sm"
       rounded="sm"
       _pressed={{ bg: "primary.400" }}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigation } from '@react-navigation/native';
 import { 
   Button as ButtonInfo, 
   Heading, 
@@ -19,6 +20,7 @@ import { Button } from './Button';
 export function ButtonInformation() {
   const [isButtonSelected, setIsButtonSelected ] = useState(false);
   const [isCitySelected, setIsCitySelected ] = useState("");
+  const navigation = useNavigation();
   const { colors } = useTheme();
 
   const handleShowInfos = () => {
@@ -27,6 +29,10 @@ export function ButtonInformation() {
 
   const handleShowCities = () => {
     setIsCitySelected(true);
+  }
+
+  const handleNewScreen = () => {
+    navigation.navigate('homeMotoboy');
   }
 
   return (
@@ -42,7 +48,7 @@ export function ButtonInformation() {
         onPress={handleShowInfos}
       >
         <HStack width="full" space={48} alignItems="center" >
-          <Heading fontSize="lg" color={colors.white}>
+          <Heading fontSize="md" color={colors.white}>
             Entregador
           </Heading>
           <Icon as={<IconMoto color={colors.white} size={32} />} />
@@ -60,7 +66,7 @@ export function ButtonInformation() {
         endIcon={<Icon as={<ForkKnife color={colors.white} size={32} />} ml={32}/>}
         onPress={handleShowInfos}
       >
-        <Heading fontSize="lg" color={colors.white}>
+        <Heading fontSize="md" color={colors.white}>
           Estabelecimento
         </Heading>
       </ButtonInfo>
@@ -100,7 +106,13 @@ export function ButtonInformation() {
                 isCitySelected && (
                   <VStack mt={12} width="full" alignItems="center" justifyContent="center">
                     <IconLogoInformation />
-                    <Button bgColor="primary.700" color="white" title="Confirmar" mt={8} />
+                    <Button 
+                      bgColor="primary.700" 
+                      color="white" 
+                      title="Confirmar" 
+                      mt={8} 
+                      onPress={handleNewScreen}
+                    />
                   </VStack>
                 )
               }         

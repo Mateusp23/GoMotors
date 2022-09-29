@@ -1,5 +1,5 @@
 import { HStack, IconButton, useTheme, Heading, StyledProps } from 'native-base';
-//import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { CaretLeft } from 'phosphor-react-native';
 
@@ -9,7 +9,7 @@ type Props = StyledProps & {
 }
 
 export function Header({ isBackScreen = true, title, ...rest }: Props) {
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
   const { colors } = useTheme();
 
   function handleGoBack() {
@@ -29,6 +29,7 @@ export function Header({ isBackScreen = true, title, ...rest }: Props) {
       { isBackScreen && 
         <IconButton 
           icon={<CaretLeft color={colors.gray[200]} size={24} />}
+          onPress={handleGoBack}
         />
       }
       

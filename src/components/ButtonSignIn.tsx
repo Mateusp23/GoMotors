@@ -1,6 +1,13 @@
 import { Stack, Box, HStack, Heading, Divider, Icon, Button as BtnSignIn, useTheme } from 'native-base';
 import { GoogleLogo, AppleLogo } from 'phosphor-react-native';
 
+type AuthResponse = {
+  type: string;
+  params: {
+    accessToken: string;
+  }
+}
+
 export function ButtonSignIn() {
   const { colors } = useTheme();
 

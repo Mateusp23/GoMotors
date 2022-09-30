@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "GoMotors",
-    "slug": "GoMotors",
+    "slug": "gomotors",
+    "scheme": "gomotors",
     "version": "1.0.0",
     "splash": {
       "image": "./src/assets/splash-goMotors.png",

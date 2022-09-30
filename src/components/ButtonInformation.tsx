@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { 
   Button as ButtonInfo, 
   Heading, 
@@ -17,12 +17,29 @@ import IconMoto from '../assets/icon-moto.svg';
 import IconLogoInformation from '../assets/logo-screen-info.svg';
 import { Button } from './Button';
 
+type Params = {
+  token: string;
+} 
+
+type Profile = {
+  name: string;
+  email: string;
+  family_name: string;
+  given_name: string;
+  picture: string;
+}
+
 export function ButtonInformation() {
+  const [profile, setProfile] = useState({} as Profile);
+
   const [isButtonSelected, setIsButtonSelected ] = useState(false);
   const [isCitySelected, setIsCitySelected ] = useState("");
+  const route = useRoute();
   const navigation = useNavigation();
   const { colors } = useTheme();
 
+  const { token } = route.params as Params;
+  
   const handleShowInfos = () => {
     setIsButtonSelected(true);
   }
@@ -34,6 +51,17 @@ export function ButtonInformation() {
   const handleNewScreen = () => {
     navigation.navigate('homeMotoboy');
   }
+
+  async function loadProfile() {
+    const response = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${token}`);
+    const userInfo = await response.json();
+
+    console.log(userInfo);
+  }
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
 
   return (
     <>

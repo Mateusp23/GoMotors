@@ -19,6 +19,9 @@ import { GoogleLogo, FacebookLogo } from 'phosphor-react-native';
 import { Button } from '../components/Button';
 import { ButtonSignIn } from '../components/ButtonSignIn';
 
+const { CLIENT_ID } = process.env;
+const { REDIRECT_URI } = process.env;
+
 type AuthResponse = {
   type: string;
   params: {
@@ -31,8 +34,6 @@ export function SignIn() {
   const { colors } = useTheme();
 
   async function handleSignIn() {
-    const CLIENT_ID = '401145415501-5rd3rql0ke1hjlhcmvesc5g1gjorp3kf.apps.googleusercontent.com';
-    const REDIRECT_URI = 'https://auth.expo.io/@mateuspp/gomotors';
     const RESPONSE_TYPE = 'token';
     const SCOPE = encodeURI('profile email');
     

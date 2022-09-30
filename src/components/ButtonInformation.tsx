@@ -57,6 +57,7 @@ export function ButtonInformation() {
     const userInfo = await response.json();
 
     console.log(userInfo);
+    //setProfile(userInfo);
   }
 
   useEffect(() => {

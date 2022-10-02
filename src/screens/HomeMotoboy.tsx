@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { VStack, HStack, Box, IconButton, Heading, useTheme, Avatar, Text, FlatList, Center, Icon } from 'native-base';
+import { VStack, HStack, Box, IconButton, Heading, useTheme, Text, FlatList, Center, Icon } from 'native-base';
 import { Header } from '../components/Header';
 import { Filter } from '../components/Filter';
 
@@ -7,6 +7,7 @@ import IconMoto from '../assets/icon-moto.svg';
 
 import { SignOut } from 'phosphor-react-native';
 import { Button } from '../components/Button';
+import { HeaderProfile } from '../components/HeaderProfile';
 
 export function HomeMotoboy() {
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
@@ -15,20 +16,7 @@ export function HomeMotoboy() {
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HStack
-        w="full"
-        justifyContent="space-between"
-        alignItems="center"
-        bg="gray.600"
-        pt={12}
-        pb={5}
-        px={6}
-      > 
-        <Heading fontSize="md" color={colors.white}>Olá, Mateus</Heading>
-        <Avatar bg="gray.600" alignSelf="center" size="md" source={{
-          uri: "https://github.com/mateusp23.png"
-        }}/>
-      </HStack>
+      <HeaderProfile url="https://github.com/mateusp23.png" title="Mateus" />
 
       <VStack flex={1} px={6}>
         <HStack 

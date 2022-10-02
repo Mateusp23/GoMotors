@@ -13,7 +13,7 @@ import {
   Select 
 } from 'native-base';
 import { ForkKnife, House, CaretDown } from 'phosphor-react-native';
-import IconMoto from '../assets/icon-moto.svg';
+import IconMotoSignIn from '../assets/icon-moto-sign-in.svg';
 import IconLogoInformation from '../assets/logo-screen-info.svg';
 import { Button } from './Button';
 
@@ -31,7 +31,6 @@ type Profile = {
 
 export function ButtonInformation() {
   const [profile, setProfile] = useState({} as Profile);
-
   const [isButtonSelected, setIsButtonSelected ] = useState(false);
   const [isCitySelected, setIsCitySelected ] = useState("");
   const route = useRoute();
@@ -80,7 +79,7 @@ export function ButtonInformation() {
           <Heading fontSize="md" color={colors.white}>
             Entregador
           </Heading>
-          <Icon as={<IconMoto color={colors.white} size={32} />} />
+          <Icon as={<IconMotoSignIn color={colors.white} size={32} />} />
         </HStack>
       </ButtonInfo>
       

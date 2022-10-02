@@ -39,7 +39,7 @@ export function HomeMotoboy() {
           alignItems="center"
         >
           <Heading fontSize="lg" color="gray.100">
-            Solicitações
+            Solicitações de entrega
           </Heading>
 
           <Text color="gray.200">
@@ -73,7 +73,7 @@ export function HomeMotoboy() {
               <Icon as={<IconMoto size={32} />} />
               <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
                 Você ainda não possui {'\n'}
-                solicitações {statusSelected === 'open' ? 'em andamento' : 'finalizadas'}
+                entregas {statusSelected === 'open' ? 'em andamento' : 'finalizadas'}
               </Text>
             </Center>
           )}

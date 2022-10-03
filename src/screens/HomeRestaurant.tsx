@@ -1,50 +1,25 @@
 import React, { useState } from 'react';
 import { VStack, HStack, Box, IconButton, Heading, useTheme, Text, FlatList, Center, Icon } from 'native-base';
-import { Header } from '../components/Header';
+import { Button } from '../components/Button';
 import { Filter } from '../components/Filter';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { HeaderProfile } from '../components/HeaderProfile';
 
 import IconMoto from '../assets/icon-moto.svg';
 
-import { SignOut } from 'phosphor-react-native';
-import { Button } from '../components/Button';
-import { HeaderProfile } from '../components/HeaderProfile';
-
-export function HomeMotoboy() {
+export function HomeRestaurant() {
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
   const [orders, setOrders] = useState([])
   const { colors } = useTheme();
-  const navigation = useNavigation();
-
-  const handleNewScreen = () => {
-    navigation.navigate('homeRestaurant');
-  }
-
+  
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HeaderProfile url="https://github.com/mateusp23.png" title="Mateus" />
+      <HeaderProfile url="https://github.com/mateusp23.png" title="Panela de Ferro" />
 
       <VStack flex={1} px={6}>
-        <HStack 
-          w="full" 
-          mt={8} 
-          mb={4} 
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Heading fontSize="lg" color="gray.100">
-            Solicitações de entrega
-          </Heading>
-
-          <Text color="gray.200">
-            2
-          </Text>
-        </HStack>
-
-        <HStack space={3} mb={8}>
+        <HStack space={3} mb={8} mt={8}>
           <Filter
             type="open"
-            title="Em andamento"
+            title="Lista de Motoboys"
             onPress={() => setStatusSelected('open')}
             isActive={statusSelected === 'open'}
           />
@@ -66,14 +41,14 @@ export function HomeMotoboy() {
             <Center>
               <Icon as={<IconMoto size={32} />} />
               <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                Você ainda não possui {'\n'}
-                entregas {statusSelected === 'open' ? 'em andamento' : 'finalizadas'}
+                Não há {'\n'}
+                {statusSelected === 'open' ? 'entregadores no momento' : 'entregas finalizadas'}
               </Text>
             </Center>
           )}
         />
 
-        <Button bgColor="primary.700" title="Minhas informações" color="white" mb={5} onPress={handleNewScreen}/>
+        <Button bgColor="primary.700" title="Minhas informações" color="white" mb={5} />
       </VStack>
     </VStack>
   );

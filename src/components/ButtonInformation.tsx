@@ -17,11 +17,11 @@ import IconMotoSignIn from '../assets/icon-moto-sign-in.svg';
 import IconLogoInformation from '../assets/logo-screen-info.svg';
 import { Button } from './Button';
 
-type Params = {
+export type Params = {
   token: string;
 } 
 
-type Profile = {
+export type Profile = {
   name: string;
   email: string;
   family_name: string;

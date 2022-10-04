@@ -23,7 +23,7 @@ export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
         bg="gray.600" 
         alignSelf="center" 
         size="md" 
-        source={{url}}
+        source={{ uri: url }}
         {...rest}
       />
     </HStack>

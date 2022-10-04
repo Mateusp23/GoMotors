@@ -3,6 +3,7 @@ import { VStack, HStack, Box, IconButton, Heading, useTheme, Text, FlatList, Cen
 import { Button } from '../components/Button';
 import { Filter } from '../components/Filter';
 import { HeaderProfile } from '../components/HeaderProfile';
+import { useAuth } from '../context/auth';
 
 import IconMoto from '../assets/icon-moto.svg';
 
@@ -10,10 +11,13 @@ export function HomeRestaurant() {
   const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
   const [orders, setOrders] = useState([])
   const { colors } = useTheme();
+  const { user } = useAuth();
+
+  console.log("user ", user);
   
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HeaderProfile url="https://github.com/mateusp23.png" title="Panela de Ferro" />
+      <HeaderProfile url={user.picture} title={user.given_name} />
 
       <VStack flex={1} px={6}>
         <HStack space={3} mb={8} mt={8}>

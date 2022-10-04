@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthProvider } from './src/context/auth';
 import { THEME } from './src/styles/theme';
 import { NativeBaseProvider, StatusBar, Heading } from 'native-base';
 import { useFonts, Raleway_400Regular, Raleway_700Bold } from '@expo-google-fonts/raleway';
@@ -15,12 +16,14 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={THEME}>
-      <StatusBar 
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      { fontsLoaded ? <Routes /> : <Loading /> }
+      <AuthProvider>
+        <StatusBar 
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        { fontsLoaded ? <Routes /> : <Loading /> }
+      </AuthProvider>
     </NativeBaseProvider>
   );
 }

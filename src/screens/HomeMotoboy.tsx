@@ -37,7 +37,7 @@ export function HomeMotoboy() {
   }, []);
 
   const handleNewScreen = () => {
-    navigation.navigate('homeRestaurant');
+    navigation.navigate('editMotoboy');
   }
 
   return (

@@ -13,7 +13,7 @@ import {
 import IconAvailable from "../assets/icon-status-available.svg";
 import IconDelivery from "../assets/icon-status-on-delivery.svg";
 
-export type OrderProps = {
+export type OrderMotoboyListProps = {
   id: string;
   name: string;
   picture: string;
@@ -21,7 +21,7 @@ export type OrderProps = {
 };
 
 type Props = IPressableProps & {
-  data: OrderProps;
+  data: OrderMotoboyListProps;
 };
 
 export function OrderListMotoboys({ data, ...rest }: Props) {

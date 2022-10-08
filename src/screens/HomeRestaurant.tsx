@@ -20,27 +20,31 @@ import { useAuth } from "../context/auth";
 import { Params, Profile } from "../components/ButtonInformation";
 
 import IconMoto from "../assets/icon-moto.svg";
-import { OrderListMotoboys } from "../components/OrderListMotoboys";
+import {
+  OrderListMotoboys,
+  OrderMotoboyListProps,
+} from "../components/OrderListMotoboys";
 
 export function HomeRestaurant() {
   const [profile, setProfile] = useState({} as Profile);
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
-  const [ordersListMotoboy, setOrdersListMotoboy] = useState([
-    {
-      id: "1",
-      name: "Mateus Paulart",
-      picture: "https://github.com/Mateusp23.png",
-      status: "Disponível",
-    },
-    {
-      id: "2",
-      name: "Otávio Borges",
-      picture: "https://github.com/otavioborgsm.png",
-      status: "Em entrega",
-    },
-  ]);
+  const [ordersListMotoboy, setOrdersListMotoboy] =
+    useState<OrderMotoboyListProps>([
+      {
+        id: "1",
+        name: "Mateus Paulart",
+        picture: "https://github.com/Mateusp23.png",
+        status: "Disponível",
+      },
+      {
+        id: "2",
+        name: "Otávio Borges",
+        picture: "https://github.com/otavioborgsm.png",
+        status: "Em entrega",
+      },
+    ]);
   const { colors } = useTheme();
   const route = useRoute();
   const navigation = useNavigation();

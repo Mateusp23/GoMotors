@@ -16,10 +16,11 @@ import { Filter } from "../components/Filter";
 import { HeaderProfile } from "../components/HeaderProfile";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useAuth } from "../context/auth";
+import { useAuth, AuthProps } from "../context/auth";
 import { Params, Profile } from "../components/ButtonInformation";
 
 import IconMoto from "../assets/icon-moto.svg";
+import handleCreateUser from "../services/UserRegister/userRegister";
 import {
   OrderListMotoboys,
   OrderMotoboyListProps,
@@ -58,13 +59,31 @@ export function HomeRestaurant() {
     const userInfo = await response.json();
 
     setProfile(userInfo);
-    console.log("token", userInfo);
+    // console.log("token", userInfo);
     signIn(userInfo);
   }
-  console.log("**", user);
+
+  //console.log("**", user.name);
+  console.log("teste firebase", user.name);
+  const addUser = async ({
+    name,
+    email,
+    id,
+    given_name,
+    picture,
+  }: AuthProps) => {
+    await handleCreateUser({
+      name,
+      email,
+      id,
+      given_name,
+      picture,
+    });
+  };
 
   useEffect(() => {
     loadProfile();
+    addUser();
   }, []);
 
   const handleNewScreen = () => {

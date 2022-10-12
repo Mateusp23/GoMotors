@@ -21,6 +21,7 @@ import IconMoto from "../assets/icon-moto.svg";
 import { Button } from "../components/Button";
 import { HeaderProfile } from "../components/HeaderProfile";
 import { Params, Profile } from "../components/ButtonInformation";
+import handleCreateUser from "../services/UserRegister/userRegister";
 
 export function HomeMotoboy() {
   const [profile, setProfile] = useState({} as Profile);
@@ -44,7 +45,17 @@ export function HomeMotoboy() {
     console.log("token", userInfo);
     signIn(userInfo);
   }
-  console.log("**", user);
+
+  const addUser = () => {
+    console.log("**", user.name);
+    // handleCreateUser({
+    //   name,
+    //   email,
+    //   id,
+    //   given_name,
+    //   picture,
+    // });
+  };
 
   useEffect(() => {
     loadProfile();

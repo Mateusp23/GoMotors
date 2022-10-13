@@ -5,7 +5,8 @@ import { HomeMotoboy } from "../screens/HomeMotoboy";
 import { SignIn } from "../screens/SingIn";
 import { HomeRestaurant } from "../screens/HomeRestaurant";
 import { EditMotoboy } from "../screens/EditMotoboy";
-import { MotoboyInformation } from "../screens/MotoboyInformation";
+import { EditRestaurant } from "../screens/EditRestaurant";
+import { MotoboyDetails } from "../screens/MotoboyDetails";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -17,7 +18,8 @@ export function AppRoutes() {
       <Screen name="homeMotoboy" component={HomeMotoboy} />
       <Screen name="homeRestaurant" component={HomeRestaurant} />
       <Screen name="editMotoboy" component={EditMotoboy} />
-      <Screen name="motoboyInformation" component={MotoboyInformation} />
+      <Screen name="editRestaurant" component={EditRestaurant} />
+      <Screen name="motoboyDetails" component={MotoboyDetails} />
     </Navigator>
   );
 }

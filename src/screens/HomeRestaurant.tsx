@@ -61,14 +61,13 @@ export function HomeRestaurant() {
     console.log("token", userInfo);
     signIn(userInfo);
   }
-  console.log("**", user);
 
   useEffect(() => {
     loadProfile();
   }, []);
 
   const handleNewScreen = () => {
-    navigation.navigate("editMotoboy");
+    navigation.navigate("editRestaurant");
   };
 
   // function handleOpenDetails(orderId: string) {
@@ -76,7 +75,7 @@ export function HomeRestaurant() {
   // }
 
   function handleOpenMotoboyDetails() {
-    navigation.navigate("motoboyInformation");
+    navigation.navigate("motoboyDetails");
   }
 
   return (
@@ -104,7 +103,7 @@ export function HomeRestaurant() {
           />
           <Filter
             type="closed"
-            title="Finalizados"
+            title="Entregas"
             onPress={() => setStatusSelected("closed")}
             isActive={statusSelected === "closed"}
           />
@@ -139,6 +138,7 @@ export function HomeRestaurant() {
           title="Minhas informações"
           color="white"
           mb={5}
+          onPress={handleNewScreen}
         />
       </VStack>
     </VStack>

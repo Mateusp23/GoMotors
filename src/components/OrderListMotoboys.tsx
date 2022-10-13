@@ -37,7 +37,7 @@ export function OrderListMotoboys({ data, ...rest }: Props) {
     <Pressable {...rest}>
       <HStack
         bg="gray.600"
-        mb={4}
+        mb={2}
         alignItems="center"
         justifyContent="space-between"
         rounded="sm"

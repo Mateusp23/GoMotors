@@ -43,9 +43,9 @@ export function SignIn() {
     })) as AuthSession;
 
     if (type === "success") {
-      //navigation.navigate('userInformation', { token: params.access_token });
+      navigation.navigate("userInformation", { token: params.access_token });
       //navigation.navigate("homeMotoboy", { token: params.access_token });
-      navigation.navigate("homeRestaurant", { token: params.access_token });
+      //navigation.navigate("homeRestaurant", { token: params.access_token });
     }
   }
 

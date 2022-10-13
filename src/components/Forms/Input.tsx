@@ -1,9 +1,13 @@
-import { Input as NativeBaseInput, IInputProps } from 'native-base';
+import { Input as NativeBaseInput, IInputProps } from "native-base";
 
-export function Input({ ...rest }: IInputProps) {
+interface InputProps extends IInputProps {
+  bgColor: string;
+}
+
+export function Input({ bgColor = "gray.700", ...rest }: IInputProps) {
   return (
-    <NativeBaseInput 
-      bg="gray.700"
+    <NativeBaseInput
+      bg={bgColor}
       height={14}
       size="md"
       borderWidth={0}

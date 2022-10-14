@@ -13,7 +13,6 @@ export function EditRestaurant() {
 
       <Input type="text" placeholder="Rua" isRequired />
       <Input placeholder="Bairro" mt={3} isRequired />
-
       <Input placeholder="Complemento" mt={3} isRequired />
       <Input
         placeholder="Conte sua história no mercado, qual ramo trabalha..."
@@ -23,7 +22,6 @@ export function EditRestaurant() {
         multiline
         textAlignVertical="top"
       />
-
       <Button
         bgColor="primary.700"
         color="white"

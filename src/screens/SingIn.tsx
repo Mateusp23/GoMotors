@@ -65,6 +65,15 @@ export function SignIn() {
       });
   }
 
+  function handleForgotPassword() {
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() =>
+        Alert.alert("Redefinir senha", "Enviamos um e-mail para você")
+      )
+      .catch((error) => console.log(error));
+  }
+
   return (
     <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
       <Logo />
@@ -104,7 +113,7 @@ export function SignIn() {
             Criar conta
           </Text>
         </ButtonNative>
-        <ButtonNative variant="unstyled">
+        <ButtonNative variant="unstyled" onPress={handleForgotPassword}>
           <Text fontSize="md" color="white">
             Esqueci minha senha
           </Text>

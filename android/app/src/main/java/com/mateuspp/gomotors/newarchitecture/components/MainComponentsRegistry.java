@@ -1,4 +1,4 @@
-package com.gomotors.newarchitecture.components;
+package com.mateuspp.gomotors.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

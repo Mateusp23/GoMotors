@@ -1,4 +1,4 @@
-package com.gomotors.newarchitecture.modules;
+package com.mateuspp.gomotors.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

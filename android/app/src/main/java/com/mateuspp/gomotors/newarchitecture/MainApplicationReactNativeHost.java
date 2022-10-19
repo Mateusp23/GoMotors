@@ -1,4 +1,4 @@
-package com.gomotors.newarchitecture;
+package com.mateuspp.gomotors.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.gomotors.BuildConfig;
-import com.gomotors.newarchitecture.components.MainComponentsRegistry;
-import com.gomotors.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.mateuspp.gomotors.BuildConfig;
+import com.mateuspp.gomotors.newarchitecture.components.MainComponentsRegistry;
+import com.mateuspp.gomotors.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

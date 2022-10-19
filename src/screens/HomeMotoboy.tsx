@@ -31,24 +31,6 @@ export function HomeMotoboy() {
   const { colors } = useTheme();
   const route = useRoute();
   const navigation = useNavigation();
-  const { signIn, user } = useAuth();
-  const { token } = route.params as Params;
-
-  async function loadProfile() {
-    const response = await fetch(
-      `https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${token}`
-    );
-    const userInfo = await response.json();
-
-    setProfile(userInfo);
-    console.log("token", userInfo);
-    signIn(userInfo);
-  }
-  console.log("**", user);
-
-  useEffect(() => {
-    loadProfile();
-  }, []);
 
   const handleNewScreen = () => {
     navigation.navigate("editMotoboy");
@@ -56,7 +38,7 @@ export function HomeMotoboy() {
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HeaderProfile url={user.picture} title={user.given_name} />
+      <HeaderProfile url="" title="" />
 
       <VStack flex={1} px={6}>
         <HStack

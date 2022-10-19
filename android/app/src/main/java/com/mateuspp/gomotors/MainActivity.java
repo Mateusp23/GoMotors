@@ -1,4 +1,4 @@
-package com.gomotors;
+package com.mateuspp.gomotors;
 
 import android.os.Build;
 import android.os.Bundle;

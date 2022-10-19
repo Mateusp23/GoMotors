@@ -48,23 +48,6 @@ export function HomeRestaurant() {
   const { colors } = useTheme();
   const route = useRoute();
   const navigation = useNavigation();
-  const { signIn, user } = useAuth();
-  const { token } = route.params as Params;
-
-  async function loadProfile() {
-    const response = await fetch(
-      `https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${token}`
-    );
-    const userInfo = await response.json();
-
-    setProfile(userInfo);
-    console.log("token", userInfo);
-    signIn(userInfo);
-  }
-
-  useEffect(() => {
-    loadProfile();
-  }, []);
 
   const handleNewScreen = () => {
     navigation.navigate("editRestaurant");
@@ -80,7 +63,10 @@ export function HomeRestaurant() {
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HeaderProfile url={user.picture} title={user.given_name} />
+      <HeaderProfile
+        url="https://avatars.githubusercontent.com/u/61236430?v=4"
+        title="Mateus"
+      />
 
       <VStack flex={1} px={6}>
         <HStack

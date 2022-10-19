@@ -17,10 +17,6 @@ import IconMotoSignIn from "../assets/icon-moto-sign-in.svg";
 import IconLogoInformation from "../assets/logo-screen-info.svg";
 import { Button } from "./Button";
 
-export type Params = {
-  token: string;
-};
-
 export type Profile = {
   name: string;
   email: string;
@@ -33,11 +29,8 @@ export function ButtonInformation() {
   const [profile, setProfile] = useState({} as Profile);
   const [isButtonSelected, setIsButtonSelected] = useState(false);
   const [isCitySelected, setIsCitySelected] = useState("");
-  const route = useRoute();
   const navigation = useNavigation();
   const { colors } = useTheme();
-
-  const { token } = route.params as Params;
 
   const handleShowInfos = () => {
     setIsButtonSelected(true);
@@ -49,22 +42,8 @@ export function ButtonInformation() {
 
   const handleNewScreen = () => {
     //navigation.navigate('homeMotoboy');
-    navigation.navigate("homeRestaurant", { token });
+    navigation.navigate("homeRestaurant");
   };
-
-  async function loadProfile() {
-    const response = await fetch(
-      `https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${token}`
-    );
-    const userInfo = await response.json();
-
-    setProfile(userInfo);
-    console.log("user: ", profile);
-  }
-
-  useEffect(() => {
-    loadProfile();
-  }, []);
 
   return (
     <>

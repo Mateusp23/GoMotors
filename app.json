@@ -11,6 +11,17 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "plugins": [
+      "@react-native-firebase/app"
+    ],
+    "android": {
+      "package": "com.mateuspp.gomotors",
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mateuspp.gomotors",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    }
   }
 }

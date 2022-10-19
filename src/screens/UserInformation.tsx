@@ -1,8 +1,8 @@
-import React from 'react';
-import { VStack, Box } from 'native-base';
-import { Header } from '../components/Header';
-import { Button } from '../components/Button';
-import { ButtonInformation } from '../components/ButtonInformation';
+import React from "react";
+import { VStack, Box } from "native-base";
+import { Header } from "../components/Header";
+import { Button } from "../components/Button";
+import { ButtonInformation } from "../components/ButtonInformation";
 
 export function UserInformation() {
   return (
@@ -11,6 +11,6 @@ export function UserInformation() {
       <Box width="full">
         <ButtonInformation />
       </Box>
-    </VStack>    
+    </VStack>
   );
 }

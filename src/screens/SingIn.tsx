@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { VStack, Heading, Icon, useTheme } from "native-base";
+import {
+  VStack,
+  Heading,
+  Icon,
+  useTheme,
+  HStack,
+  Button as ButtonNative,
+  Text,
+} from "native-base";
 import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
 import * as AuthSession from "expo-auth-session";
@@ -22,8 +30,12 @@ export function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigation = useNavigation();
   const { colors } = useTheme();
+  const navigation = useNavigation();
+
+  function handleRegisterUser() {
+    navigation.navigate("registerUser");
+  }
 
   function handleSignIn() {
     if (!email || !password) {
@@ -85,6 +97,19 @@ export function SignIn() {
         onPress={handleSignIn}
         isLoading={isLoading}
       />
+
+      <HStack px={12}>
+        <ButtonNative variant="unstyled" onPress={handleRegisterUser}>
+          <Text fontSize="md" color="white">
+            Criar conta
+          </Text>
+        </ButtonNative>
+        <ButtonNative variant="unstyled">
+          <Text fontSize="md" color="white">
+            Esqueci minha senha
+          </Text>
+        </ButtonNative>
+      </HStack>
       {/* <Box width="full" p={6}>
         <Text color="white" textAlign="center" fontSize="xl" mt={3} mb={3}>
           Acesse sua conta

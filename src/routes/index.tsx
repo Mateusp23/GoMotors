@@ -8,6 +8,7 @@ import { AppRoutes } from "./app.routes";
 import { Loading } from "../components/Loading";
 import { UserInformation } from "../screens/UserInformation";
 import { Loading as LoadingScreen } from "../screens/Loading";
+import { RegisterUser } from "../screens/RegisterUser";
 
 export function Routes() {
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,7 @@ export function Routes() {
 
   return (
     <NavigationContainer>
-      {user ? <AppRoutes /> : <SignIn />}
+      <AppRoutes />
       {/* {user ? <LoadingScreen /> : <SignIn />} */}
     </NavigationContainer>
   );

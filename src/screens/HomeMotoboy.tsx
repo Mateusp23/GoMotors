@@ -38,7 +38,11 @@ export function HomeMotoboy() {
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
-      <HeaderProfile url="" title="" />
+      <HeaderProfile
+        url="https://avatars.githubusercontent.com/u/61236430?v=4"
+        title="Mateus"
+        userType="Motoboy"
+      />
 
       <VStack flex={1} px={6}>
         <HStack

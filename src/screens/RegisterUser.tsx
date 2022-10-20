@@ -27,7 +27,7 @@ export function RegisterUser() {
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   }
 
@@ -35,14 +35,14 @@ export function RegisterUser() {
     <VStack flex={1} alignItems="center" px={8} pt={8} bg="gray.600">
       <Header isBackScreen title="Cadastro" />
 
-      {/* <Input
+      <Input
         mb={4}
         placeholder="Nome"
         InputLeftElement={
           <Icon as={<User color={colors.gray[300]} />} ml={4} />
         }
         onChangeText={setName}
-      /> */}
+      />
       <Input
         mb={4}
         placeholder="E-mail"

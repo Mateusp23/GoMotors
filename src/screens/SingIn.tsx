@@ -45,6 +45,9 @@ export function SignIn() {
     setIsLoading(true);
     auth()
       .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        return navigation.navigate("userInformation");
+      })
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
@@ -66,6 +69,10 @@ export function SignIn() {
   }
 
   function handleForgotPassword() {
+    if (!email || !password) {
+      return Alert.alert("Entrar", "Informe e-mail e senha");
+    }
+
     auth()
       .sendPasswordResetEmail(email)
       .then(() =>
@@ -119,36 +126,6 @@ export function SignIn() {
           </Text>
         </ButtonNative>
       </HStack>
-      {/* <Box width="full" p={6}>
-        <Text color="white" textAlign="center" fontSize="xl" mt={3} mb={3}>
-          Acesse sua conta
-        </Text>
-        <Box width="full" mt={4}>
-          <BtnSignIn
-            bg="gray.650"
-            h={14}
-            fontSize="sm"
-            rounded="sm"
-            _pressed={{ bg: "gray.700" }}
-            onPress={handleSignIn}
-          >
-            <HStack height="full" alignItems="center" justifyContent="center">
-              <Icon as={<GoogleLogo color={colors.primary[700]} size={32} />} />
-              <Divider
-                height="full"
-                thickness="2"
-                bg="primary.700"
-                h="full"
-                mx="4"
-                orientation="vertical"
-              />
-              <Heading color="primary.700" fontSize="lg">
-                Entrar com Google
-              </Heading>
-            </HStack>
-          </BtnSignIn>
-        </Box>
-      </Box> */}
     </VStack>
   );
 }

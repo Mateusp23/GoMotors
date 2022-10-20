@@ -1,4 +1,13 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const { KEY_STORAGE_TYPE_USER } = process.env;
 
 export interface AuthProps {
   name: string;
@@ -6,6 +15,8 @@ export interface AuthProps {
   id: string;
   given_name: string;
   picture: string;
+  userType: string;
+  setUserType: React.Dispatch<React.SetStateAction<string>>;
   signIn: (email, name, id, given_name, picture) => void;
 }
 
@@ -13,6 +24,12 @@ export const AuthContext = createContext({} as AuthProps);
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState({});
+  const [userType, setUserType] = useState("");
+
+  const getTypeUser = useCallback(async () => {
+    const userTypeStorage = await AsyncStorage.getItem(KEY_STORAGE_TYPE_USER);
+    setUserType(userTypeStorage);
+  }, []);
 
   const signIn = ({ name, email, id, given_name, picture }: AuthProps) => {
     setUser({
@@ -24,8 +41,12 @@ function AuthProvider({ children }) {
     });
   };
 
+  useEffect(() => {
+    getTypeUser();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ signIn, user }}>
+    <AuthContext.Provider value={{ signIn, user, userType, setUserType }}>
       {children}
     </AuthContext.Provider>
   );

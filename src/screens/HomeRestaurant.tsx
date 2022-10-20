@@ -66,6 +66,7 @@ export function HomeRestaurant() {
       <HeaderProfile
         url="https://avatars.githubusercontent.com/u/61236430?v=4"
         title="Mateus"
+        userType="Restaurante"
       />
 
       <VStack flex={1} px={6}>

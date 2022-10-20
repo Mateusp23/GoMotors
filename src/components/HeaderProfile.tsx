@@ -1,21 +1,34 @@
 import {
   HStack,
+  VStack,
   Avatar,
   useTheme,
   Heading,
   IAvatarProps,
   IconButton,
+  Text,
 } from "native-base";
 import auth from "@react-native-firebase/auth";
 import { Alert } from "react-native";
 import { SignOut } from "phosphor-react-native";
+import { useAuth } from "../context/auth";
+
+const { KEY_STORAGE_TYPE_USER } = process.env;
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type HeaderProfileProps = IAvatarProps & {
   title: string;
   url: string;
+  userType: "restaurante" | "motoboy";
 };
 
-export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
+export function HeaderProfile({
+  title,
+  url,
+  userType,
+  ...rest
+}: HeaderProfileProps) {
+  const { setUserType } = useAuth();
   const { colors } = useTheme();
 
   function handleLogout() {
@@ -31,6 +44,10 @@ export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
         onPress: () => {
           auth()
             .signOut()
+            .then(async () => {
+              await AsyncStorage.removeItem(KEY_STORAGE_TYPE_USER);
+              setUserType("");
+            })
             .catch((error) => {
               console.log(error);
               return Alert.alert("Sair", "Não foi possível sair.");
@@ -58,9 +75,14 @@ export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
           source={{ uri: url }}
           {...rest}
         />
-        <Heading ml={4} fontSize="md" color={colors.white}>
-          Olá, {title}
-        </Heading>
+        <VStack>
+          <Heading ml={4} fontSize="md" color={colors.white}>
+            Olá, {title}
+          </Heading>
+          <Text ml={4} fontSize="md" color={colors.gray[300]}>
+            {userType}
+          </Text>
+        </VStack>
       </HStack>
       <IconButton
         icon={<SignOut size={26} color={colors.gray[300]} />}

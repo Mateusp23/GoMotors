@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import firestore from "@react-native-firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
+
 import { Alert } from "react-native";
 import { VStack, Heading, useTheme } from "native-base";
 import { Header } from "../components/Header";
@@ -7,17 +9,22 @@ import { Input } from "../components/Forms/Input";
 import { Button } from "../components/Button";
 
 export function EditRestaurant() {
-  const [street, setStreet] = useState("");
+  const [road, setRoad] = useState("");
   const [district, setDistrict] = useState("");
   const [complement, setComplement] = useState("");
   const [description, setDescription] = useState("");
   const { colors } = useTheme();
+  const navigation = useNavigation();
 
   async function handleSendData() {
+    if (!road || !district || !complement || !description) {
+      return Alert.alert("Editar", "Preencha os campos.");
+    }
+
     firestore()
       .collection("info")
       .add({
-        street,
+        road,
         district,
         complement,
         description,
@@ -25,6 +32,7 @@ export function EditRestaurant() {
       })
       .then(() => {
         Alert.alert("Informações adicionadas com sucesso.");
+        navigation.goBack();
       })
       .catch((error) => console.error(error));
   }
@@ -33,12 +41,7 @@ export function EditRestaurant() {
     <VStack flex={1} p={5} bg="gray.600">
       <Header isBackScreen title="Editar Perfil - Restaurante" />
 
-      <Input
-        type="text"
-        placeholder="Rua"
-        isRequired
-        onChangeText={setStreet}
-      />
+      <Input type="text" placeholder="Rua" isRequired onChangeText={setRoad} />
       <Input
         placeholder="Bairro"
         mt={3}

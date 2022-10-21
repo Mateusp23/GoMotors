@@ -7,6 +7,7 @@ import { Button } from "../components/Button";
 import { Header } from "../components/Header";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import firestore from "@react-native-firebase/firestore";
 
 export function RegisterUser() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +17,31 @@ export function RegisterUser() {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
+  // async function sendDataFirebase(name, email) {
+  //   console.log("states", name, email);
+  //   await firestore().collection("users").add({
+  //     name,
+  //     email,
+  //     //createdAt: firestore.FieldValue.serverTimestamp(),
+  //   });
+  // }
+
   function handleNewAccount() {
+    console.log("funcao", name, email);
+    if (!email || !password || !name) {
+      return Alert.alert("Entrar", "Preencha todos os campos.");
+    }
     setIsLoading(true);
 
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         Alert.alert("Conta", "Cadastrado com sucesso!");
+        firestore().collection("users").add({
+          name,
+          email,
+          //createdAt: firestore.FieldValue.serverTimestamp(),
+        });
         navigation.goBack();
       })
       .catch((error) => console.log(error))

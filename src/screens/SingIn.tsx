@@ -111,7 +111,7 @@ export function SignIn() {
         bgColor="primary.700"
         color="white"
         onPress={handleSignIn}
-        isLoading={isLoading}
+        isLoading={isLoading} 
       />
 
       <HStack px={12}>

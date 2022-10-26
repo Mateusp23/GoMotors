@@ -29,6 +29,11 @@ export function RegisterUser() {
   const [pix, setPix] = useState('');
   const [experience, setExperience] = useState('');
 
+  const [road, setRoad] = useState("");
+  const [district, setDistrict] = useState("");
+  const [complement, setComplement] = useState("");
+  const [description, setDescription] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonSelected, setIsButtonSelected] = useState(false);
   const [selectTypeUser, setSelectTypeUser] = useState("");
@@ -52,8 +57,10 @@ export function RegisterUser() {
   };
 
   function handleNewAccount() {
-    if(!email || !password || !name) {
-      return Alert.alert("Entrar", "Preencha todos os campos.");
+    if(!email || !password || !name || !deliveries || !phone || !pix || !experience
+      || !road || !district || !complement || !description) 
+      {
+        return Alert.alert("Entrar", "Preencha todos os campos.");
     }
    
     setIsLoading(true);
@@ -139,6 +146,28 @@ export function RegisterUser() {
             mb={4}
             placeholder="Nome"
             onChangeText={setName}
+          />
+          <Input type="text" placeholder="Rua" isRequired onChangeText={setRoad} />
+          <Input
+            placeholder="Bairro"
+            mt={3}
+            isRequired
+            onChangeText={setDistrict}
+          />
+          <Input
+            placeholder="Complemento"
+            mt={3}
+            isRequired
+            onChangeText={setComplement}
+          />
+          <Input
+            placeholder="Conte sua história no mercado, qual ramo trabalha..."
+            type="text"
+            flex={1}
+            mt={3}
+            multiline
+            textAlignVertical="top"
+            onChangeText={setDescription}
           />
           <RenderData />
         </>

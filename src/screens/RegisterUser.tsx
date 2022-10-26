@@ -165,6 +165,7 @@ export function RegisterUser() {
             type="text"
             flex={1}
             mt={3}
+            mb={3}
             multiline
             textAlignVertical="top"
             onChangeText={setDescription}

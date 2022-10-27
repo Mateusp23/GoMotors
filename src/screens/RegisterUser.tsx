@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import firestore from "@react-native-firebase/firestore";
@@ -36,28 +36,16 @@ export function RegisterUser() {
   const [description, setDescription] = useState("");
 
   const [isCitySelected, setIsCitySelected] = useState("");
+  const [selectTypeUser, setSelectTypeUser] = useState("");
+  const [isButtonSelected, setIsButtonSelected] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isButtonSelected, setIsButtonSelected] = useState(false);
-  const [selectTypeUser, setSelectTypeUser] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { colors } = useTheme();
   const navigation = useNavigation();
-
-  const handleSendMotoboy = () => {
-    // enviar value motoboy para o userType
-    setSelectTypeUser("motoboy");
-    setIsButtonSelected(true);
-  };
-
-  const handleSendRestaurant = () => {
-    // enviar value restaurant para o userType
-    setSelectTypeUser("restaurant");
-    setIsButtonSelected(true);
-  };
 
   function handleNewAccount() {
     if(!email || !password || !name || !deliveries || !phone || !pix || !experience
@@ -88,42 +76,43 @@ export function RegisterUser() {
   const RenderData = () => {
     return (
       <>
-        {/* upload de foto aqui */}
         <Select
-            selectedValue={isCitySelected}
-            minWidth="200"
-            accessibilityLabel="Selecione uma cidade"
-            placeholder="Selecione uma cidade"
-            _selectedItem={{
-              color: "primary.700",
-            }}
-            _item={colors.primary}
-            placeholderTextColor={colors.primary[700]}
-            color={colors.primary[700]}
-            fontSize="md"
-            mt={3}
-            mb={3}
-            onValueChange={(itemValue) => setIsCitySelected(itemValue)}
-          >
-            <Select.Item shadow={1} label="Torres - RS" value="torres" />
-            <Select.Item
-              shadow={1}
-              label="Passo de Torres - RS"
-              value="passo"
-            />
-            <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
-            <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
-          </Select>
+          selectedValue={isCitySelected}
+          minWidth="200"
+          accessibilityLabel="Selecione uma cidade"
+          placeholder="Selecione uma cidade"
+          _selectedItem={{
+            color: "primary.700",
+          }}
+          _item={colors.primary}
+          placeholderTextColor={colors.primary[700]}
+          color={colors.primary[700]}
+          fontSize="md"
+          mt={3}
+          mb={3}
+          onValueChange={(itemValue) => setIsCitySelected(itemValue)}
+        >
+          <Select.Item shadow={1} label="Torres - RS" value="torres" />
+          <Select.Item
+            shadow={1}
+            label="Passo de Torres - RS"
+            value="passo"
+          />
+          <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
+          <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
+        </Select>
         <ButtonInfo 
-          bg="primary.700"
+          bg="gray.700"
           h={14}
           fontSize="sm"
           rounded="sm"
-          _pressed={{ bg: "primary.400" }}
-          leftIcon={<CloudArrowUp color="white" size={32} />}
+          _pressed={{ bg: "gray.400" }}
+          leftIcon={<CloudArrowUp color={colors.primary[700]} size={32} />}
           mb={3}
         >
-          Upload da sua imagem
+          <Heading color="primary.700" fontSize="md">
+            Upload da sua imagem
+          </Heading>
         </ButtonInfo>
         <Input
           mb={4}
@@ -147,6 +136,15 @@ export function RegisterUser() {
         />
       </>
     );
+  }
+  console.log("tipo user: ", selectTypeUser);
+  console.log("---------------");
+  console.log("cidade: ", isCitySelected);
+
+  const selectedUserType = () => {
+    if(selectTypeUser) {
+      setIsButtonSelected(true);
+    }
   }
 
   const RenderForms = () => {
@@ -219,46 +217,34 @@ export function RegisterUser() {
     }
   }
 
+  useEffect(() => {
+    selectedUserType();
+  }, [isButtonSelected, selectTypeUser]);
+
   return (
     <VStack flex={1} alignItems="center" px={8} pt={8} bg="gray.600">
       <ScrollView bg="gray.600" w="full" showsVerticalScrollIndicator={false}>
         <Header isBackScreen title="Realize seu cadastro" />
 
-        <ButtonInfo
-          bg="primary.700"
-          h={14}
-          fontSize="sm"
-          rounded="sm"
-          _pressed={{ bg: "primary.400" }}
-          justifyContent="space-between"
-          mb={4}
-          onPress={handleSendMotoboy}
+        <Select
+          selectedValue={selectTypeUser}
+          minWidth="200"
+          accessibilityLabel="Selecione sua atuação"
+          placeholder="Selecione sua atuação"
+          _selectedItem={{
+            color: "primary.700",
+          }}
+          _item={colors.primary}
+          placeholderTextColor={colors.primary[700]}
+          color={colors.primary[700]}
+          fontSize="md"
+          mt={3}
+          mb={3}
+          onValueChange={(itemValue) => setSelectTypeUser(itemValue)}
         >
-          <HStack width="full" space={48} alignItems="center">
-            <Heading fontSize="md" color={colors.white}>
-              Motoboy
-            </Heading>
-            <Icon as={<IconMotoSignIn color={colors.white} size={32} />} />
-          </HStack>
-        </ButtonInfo>
-
-        <ButtonInfo
-          bg="primary.700"
-          h={14}
-          fontSize="sm"
-          rounded="sm"
-          _pressed={{ bg: "primary.400" }}
-          justifyContent="space-between"
-          mb={6}
-          endIcon={
-            <Icon as={<ForkKnife color={colors.white} size={32} />} ml={32} />
-          }
-          onPress={handleSendRestaurant}
-        >
-          <Heading fontSize="md" color={colors.white}>
-            Estabelecimento
-          </Heading>
-        </ButtonInfo>
+          <Select.Item shadow={1} label="Motoboy" value="motoboy" />
+          <Select.Item shadow={1} label="Restaurant" value="restaurant" />
+        </Select>
 
         <RenderForms />        
       </ScrollView>

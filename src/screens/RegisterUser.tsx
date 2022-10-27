@@ -10,13 +10,14 @@ import {
   Icon,
   useTheme,
   ScrollView,
+  Select,
   Button as ButtonInfo,
 } from "native-base";
 
 import IconMotoSignIn from "../assets/icon-moto-sign-in.svg";
 import IconLogoInformation from "../assets/logo-screen-info.svg";
 
-import { ForkKnife, House, CaretDown } from "phosphor-react-native";
+import { ForkKnife, House, CaretDown, CloudArrowUp } from "phosphor-react-native";
 import { Input } from "../components/Forms/Input";
 import { Alert } from "react-native";
 import { Envelope, Key, User } from "phosphor-react-native";
@@ -33,6 +34,8 @@ export function RegisterUser() {
   const [district, setDistrict] = useState("");
   const [complement, setComplement] = useState("");
   const [description, setDescription] = useState("");
+
+  const [isCitySelected, setIsCitySelected] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonSelected, setIsButtonSelected] = useState(false);
@@ -85,6 +88,43 @@ export function RegisterUser() {
   const RenderData = () => {
     return (
       <>
+        {/* upload de foto aqui */}
+        <Select
+            selectedValue={isCitySelected}
+            minWidth="200"
+            accessibilityLabel="Selecione uma cidade"
+            placeholder="Selecione uma cidade"
+            _selectedItem={{
+              color: "primary.700",
+            }}
+            _item={colors.primary}
+            placeholderTextColor={colors.primary[700]}
+            color={colors.primary[700]}
+            fontSize="md"
+            mt={3}
+            mb={3}
+            onValueChange={(itemValue) => setIsCitySelected(itemValue)}
+          >
+            <Select.Item shadow={1} label="Torres - RS" value="torres" />
+            <Select.Item
+              shadow={1}
+              label="Passo de Torres - RS"
+              value="passo"
+            />
+            <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
+            <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
+          </Select>
+        <ButtonInfo 
+          bg="primary.700"
+          h={14}
+          fontSize="sm"
+          rounded="sm"
+          _pressed={{ bg: "primary.400" }}
+          leftIcon={<CloudArrowUp color="white" size={32} />}
+          mb={3}
+        >
+          Upload da sua imagem
+        </ButtonInfo>
         <Input
           mb={4}
           placeholder="E-mail"
@@ -101,6 +141,7 @@ export function RegisterUser() {
           w="full"
           bgColor="primary.700"
           color="white"
+          mb={8}
           onPress={handleNewAccount}
           isLoading={isLoading}
         />
@@ -131,7 +172,7 @@ export function RegisterUser() {
             type="text"
             flex={1}
             mt={3}
-            mb={3}
+           
             multiline
             textAlignVertical="top"
             onChangeText={setExperience}
@@ -165,7 +206,7 @@ export function RegisterUser() {
             type="text"
             flex={1}
             mt={3}
-            mb={3}
+            
             multiline
             textAlignVertical="top"
             onChangeText={setDescription}

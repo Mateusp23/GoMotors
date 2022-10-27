@@ -35,7 +35,9 @@ export function RegisterUser() {
   const [complement, setComplement] = useState("");
   const [description, setDescription] = useState("");
 
-  const [isCitySelected, setIsCitySelected] = useState("");
+  const [image, setImage] = useState("");
+
+  const [citySelected, setCitySelected] = useState("");
   const [selectTypeUser, setSelectTypeUser] = useState("");
   const [isButtonSelected, setIsButtonSelected] = useState(false);
 
@@ -49,8 +51,7 @@ export function RegisterUser() {
 
   function handleNewAccount() {
     if(!email || !password || !name || !deliveries || !phone || !pix || !experience
-      || !road || !district || !complement || !description) 
-      {
+      || !road || !district || !complement || !description || !image || !citySelected) {
         return Alert.alert("Entrar", "Preencha todos os campos.");
     }
    
@@ -77,7 +78,7 @@ export function RegisterUser() {
     return (
       <>
         <Select
-          selectedValue={isCitySelected}
+          selectedValue={citySelected}
           minWidth="200"
           accessibilityLabel="Selecione uma cidade"
           placeholder="Selecione uma cidade"
@@ -90,7 +91,7 @@ export function RegisterUser() {
           fontSize="md"
           mt={3}
           mb={3}
-          onValueChange={(itemValue) => setIsCitySelected(itemValue)}
+          onValueChange={(itemValue) => setCitySelected(itemValue)}
         >
           <Select.Item shadow={1} label="Torres - RS" value="torres" />
           <Select.Item
@@ -109,6 +110,7 @@ export function RegisterUser() {
           _pressed={{ bg: "gray.400" }}
           leftIcon={<CloudArrowUp color={colors.primary[700]} size={32} />}
           mb={3}
+          onPress={() => {}}
         >
           <Heading color="primary.700" fontSize="md">
             Upload da sua imagem
@@ -137,9 +139,6 @@ export function RegisterUser() {
       </>
     );
   }
-  console.log("tipo user: ", selectTypeUser);
-  console.log("---------------");
-  console.log("cidade: ", isCitySelected);
 
   const selectedUserType = () => {
     if(selectTypeUser) {

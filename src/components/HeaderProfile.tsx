@@ -1,13 +1,59 @@
-import { HStack, Avatar, useTheme, Heading, IAvatarProps } from 'native-base';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  Avatar, Heading, HStack, IAvatarProps,
+  IconButton,
+  Text, useTheme, VStack
+} from "native-base";
+import { SignOut } from "phosphor-react-native";
+import { useAuth } from "../context/auth";
+
+const { KEY_STORAGE_TYPE_USER } = process.env;
 
 type HeaderProfileProps = IAvatarProps & {
   title: string;
   url: string;
-}
+  userType: "restaurante" | "motoboy";
+};
 
-export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
+export function HeaderProfile({
+  title,
+  url,
+  userType,
+  ...rest
+}: HeaderProfileProps) {
+  const { setUserType } = useAuth();
   const { colors } = useTheme();
 
+  // function handleLogout() {
+  //   Alert.alert("Sair", "Tem certeza que deseja sair da aplicação?", [
+  //     {
+  //       text: "Cancelar",
+  //       onPress: () => {
+  //         return;
+  //       },
+  //     },
+  //     {
+  //       text: "Sair",
+  //       onPress: () => {
+  //         auth()
+  //           .signOut()
+  //           .then(async () => {
+  //             await AsyncStorage.removeItem(KEY_STORAGE_TYPE_USER);
+  //             setUserType("");
+  //           })
+  //           .catch((error) => {
+  //             console.log(error);
+  //             return Alert.alert("Sair", "Não foi possível sair.");
+  //           });
+  //       },
+  //     },
+  //   ]);
+  // }
+
+  const clearStorage = async () => {
+    await AsyncStorage.removeItem(KEY_STORAGE_TYPE_USER);
+    setUserType("");
+  }
   return (
     <HStack
       w="full"
@@ -17,14 +63,27 @@ export function HeaderProfile({ title, url, ...rest }: HeaderProfileProps) {
       pt={12}
       pb={5}
       px={6}
-    > 
-      <Heading fontSize="md" color={colors.white}>Olá, {title}</Heading>
-      <Avatar 
-        bg="gray.600" 
-        alignSelf="center" 
-        size="md" 
-        source={{ uri: url }}
-        {...rest}
+    >
+      <HStack justifyContent="center" alignItems="center">
+        <Avatar
+          bg="gray.600"
+          alignSelf="center"
+          size="md"
+          source={{ uri: url }}
+          {...rest}
+        />
+        <VStack>
+          <Heading ml={4} fontSize="md" color={colors.white}>
+            Olá, {title}
+          </Heading>
+          <Text ml={4} fontSize="md" color={colors.gray[300]}>
+            {userType}
+          </Text>
+        </VStack>
+      </HStack>
+      <IconButton
+        icon={<SignOut size={26} color={colors.gray[300]} />}
+        onPress={clearStorage}
       />
     </HStack>
   );

@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from "react";
 import auth from "@react-native-firebase/auth";
-import { useNavigation } from "@react-navigation/native";
 import firestore from "@react-native-firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 import {
-  HStack,
-  VStack,
-  Text,
-  Heading,
-  Icon,
-  useTheme,
-  ScrollView,
-  Select,
-  Button as ButtonInfo,
+  Button as ButtonInfo, Heading, ScrollView,
+  Select, useTheme, VStack
 } from "native-base";
+import React, { useEffect, useState } from "react";
 
-import IconMotoSignIn from "../assets/icon-moto-sign-in.svg";
-import IconLogoInformation from "../assets/logo-screen-info.svg";
 
-import { ForkKnife, House, CaretDown, CloudArrowUp } from "phosphor-react-native";
-import { Input } from "../components/Forms/Input";
+import { CloudArrowUp } from "phosphor-react-native";
 import { Alert } from "react-native";
-import { Envelope, Key, User } from "phosphor-react-native";
 import { Button } from "../components/Button";
+import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
 
 export function RegisterUser() {

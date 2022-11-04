@@ -1,26 +1,18 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import {
   Button as ButtonInfo,
-  Heading,
-  Icon,
-  useTheme,
-  HStack,
-  Box,
-  VStack,
-  Text,
-  Checkbox,
-  Select,
+  Heading, HStack, Icon, Select, useTheme, VStack
 } from "native-base";
-import { Header } from "../components/Header";
+import React, { useCallback, useState } from "react";
 import { Button } from "../components/Button";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Header } from "../components/Header";
 import { useAuth } from "../context/auth";
 
 import IconMotoSignIn from "../assets/icon-moto-sign-in.svg";
 import IconLogoInformation from "../assets/logo-screen-info.svg";
 
-import { ForkKnife, House, CaretDown } from "phosphor-react-native";
+import { ForkKnife } from "phosphor-react-native";
 
 export type Profile = {
   name: string;
@@ -34,7 +26,6 @@ const { KEY_STORAGE_TYPE_USER } = process.env;
 
 export function UserInformation() {
   const { setUserType } = useAuth();
-  const [profile, setProfile] = useState({} as Profile);
   const [selectTypeUser, setSelectTypeUser] = useState("");
   const [isButtonSelected, setIsButtonSelected] = useState(false);
   const [isCitySelected, setIsCitySelected] = useState("");
@@ -51,10 +42,6 @@ export function UserInformation() {
     // enviar value restaurant para o userType
     setSelectTypeUser("restaurant");
     setIsButtonSelected(true);
-  };
-
-  const handleShowCities = () => {
-    setIsCitySelected(true);
   };
 
   const handleNewScreen = useCallback(async () => {

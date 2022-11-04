@@ -1,13 +1,6 @@
-import { Avatar } from "native-base";
 import {
-  HStack,
-  VStack,
-  Text,
-  useTheme,
-  Box,
-  Circle,
-  Pressable,
-  IPressableProps,
+  Avatar, Box, HStack, IPressableProps, Pressable, Text,
+  useTheme, VStack
 } from "native-base";
 
 import IconAvailable from "../assets/icon-status-available.svg";

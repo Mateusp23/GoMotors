@@ -39,7 +39,7 @@ export function RegisterUser() {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
-  function handleNewAccount() {
+  const handleNewAccount = () => {
     if(!email || !password || !name || !deliveries || !phone || !pix || !experience
       || !road || !district || !complement || !description || !image || !citySelected) {
         return Alert.alert("Entrar", "Preencha todos os campos.");
@@ -64,7 +64,7 @@ export function RegisterUser() {
       });
   }
   
-  function RenderData() {
+  const RenderData = () => {
     return (
       <>
         <Select
@@ -136,7 +136,7 @@ export function RegisterUser() {
     }
   }
 
-  function RenderForms(){
+  const RenderForms = () => {
     if(isButtonSelected && selectTypeUser === "motoboy") {
       return (
         <>
@@ -186,13 +186,11 @@ export function RegisterUser() {
             onChangeText={setComplement}
           />
           <Input
-            placeholder="Conte sua história no mercado, qual ramo trabalha..."
+            placeholder="Conte sua história no mercado"
             type="text"
-            flex={1}
             mt={3}
-            multiline
-            textAlignVertical="top"
             onChangeText={setDescription}
+            value={description}
           />
           <RenderData />
         </>
@@ -231,7 +229,7 @@ export function RegisterUser() {
           <Select.Item shadow={1} label="Restaurant" value="restaurant" />
         </Select>
 
-        <RenderForms />        
+        {RenderForms()}          
       </ScrollView>
     </VStack>
   );

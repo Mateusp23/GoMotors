@@ -31,7 +31,7 @@ export function SignIn() {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        return navigation.navigate("userInformation");
+        //return navigation.navigate("userInformation");
       })
       .catch((error) => {
         console.log(error);

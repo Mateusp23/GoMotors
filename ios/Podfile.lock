@@ -1038,12 +1038,13 @@ PODS:
   - RNFBApp (16.4.1):
     - Firebase/CoreOnly (= 10.1.0)
     - React-Core
-  - RNFBAuth (15.7.0):
+  - RNFBAuth (16.4.1):
     - Firebase/Auth (= 10.1.0)
     - React-Core
     - RNFBApp
-  - RNFBFirestore (15.7.0):
+  - RNFBFirestore (16.4.1):
     - Firebase/Firestore (= 10.1.0)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
     - React-Core
     - RNFBApp
   - RNScreens (3.15.0):
@@ -1293,8 +1294,8 @@ SPEC CHECKSUMS:
   ReactCommon: fe7580b9d10f00249facf25659e0ec051320cc8a
   RNCAsyncStorage: 0c357f3156fcb16c8589ede67cc036330b6698ca
   RNFBApp: cc6bee7e8e44fc2201897f7f0f0309e9f8464fd3
-  RNFBAuth: ecf9961c905b521cbd51a823e703475ac5f3a4d9
-  RNFBFirestore: 0e814d473678645c3c586ba7a082a44b832701d0
+  RNFBAuth: 41efb9f32194f2ea2798b979cb061fde0276e1c0
+  RNFBFirestore: 3d0c3efd998a984affb78cbc343403b0e5930d85
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   Yoga: 75bf4b0131cfb46a659cd0c13309b79a6fcff66d

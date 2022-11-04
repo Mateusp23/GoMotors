@@ -1,30 +1,15 @@
-import React, { useState } from "react";
-import {
-  VStack,
-  Heading,
-  Icon,
-  useTheme,
-  HStack,
-  Button as ButtonNative,
-  Text,
-} from "native-base";
-import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
-import * as AuthSession from "expo-auth-session";
 import { useNavigation } from "@react-navigation/native";
+import {
+  Button as ButtonNative, Heading, HStack, Icon, Text, useTheme, VStack
+} from "native-base";
 import { Envelope, Key } from "phosphor-react-native";
+import React, { useState } from "react";
+import { Alert } from "react-native";
 
 import Logo from "../assets/logo_little.svg";
 import { Button } from "../components/Button";
-import { ButtonSignIn } from "../components/ButtonSignIn";
 import { Input } from "../components/Forms/Input";
-
-type AuthResponse = {
-  type: string;
-  params: {
-    access_token: string;
-  };
-};
 
 export function SignIn() {
   const [isLoading, setIsLoading] = useState(false);

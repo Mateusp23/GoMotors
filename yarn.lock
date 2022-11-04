@@ -2147,15 +2147,18 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@^15.7.0":
-  version "15.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-15.7.0.tgz#bc133cb6e0f33fd307e8d3dfa7ae04b5980d7fbb"
-  integrity sha512-0HJfCc0SUcSFbz5SyZWZOJkhtn+kOU8ytuPHM+vOJBeg5owJzmLnFx1ZI20gHU5cxhN3UQy/GKMPvlIcDeW7Bg==
+"@react-native-firebase/auth@^16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-16.4.1.tgz#666b343c99b057c7f6b4141d9b74d480bf065fe3"
+  integrity sha512-d87j7D9w9Ci52Ev73IY4YU/nmWqwpeZ/iuqZmrBgO6kvU2ebCY/KYnHrMDvSulmlfavmpScqiH+DjQum0lqkbQ==
+  dependencies:
+    "@expo/config-plugins" "^5.0.1"
+    plist "^3.0.5"
 
-"@react-native-firebase/firestore@^15.7.0":
-  version "15.7.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-15.7.0.tgz#9396d3cfcdf54aec3c10bb5c45d08d292a990abb"
-  integrity sha512-lcMApKFIo4k9GqOUuK03WBDs3JP0pa94jTmy+hZQLAqyeA78GYC57CzGGKCkR0qtwCzMtE8HXqICY9FKv4rxpg==
+"@react-native-firebase/firestore@^16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-16.4.1.tgz#6fcf4a87edfb730b4bbce1c4a2d1b5d39fcc6dd9"
+  integrity sha512-va12bIhMnv/r6SsV+ZS8uQThfXqBicTYlb1fiUhUAvLkO59mcRM3i+dRrWApxLusFg3sO+dgeNaVV428Ny6u3Q==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"

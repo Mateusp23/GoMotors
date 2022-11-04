@@ -64,7 +64,7 @@ export function RegisterUser() {
       });
   }
   
-  const RenderData = () => {
+  function RenderData() {
     return (
       <>
         <Select
@@ -136,7 +136,7 @@ export function RegisterUser() {
     }
   }
 
-  const RenderForms = () => {
+  function RenderForms(){
     if(isButtonSelected && selectTypeUser === "motoboy") {
       return (
         <>
@@ -159,9 +159,6 @@ export function RegisterUser() {
             type="text"
             flex={1}
             mt={3}
-           
-            multiline
-            textAlignVertical="top"
             onChangeText={setExperience}
           />
           <RenderData />        
@@ -193,7 +190,6 @@ export function RegisterUser() {
             type="text"
             flex={1}
             mt={3}
-            
             multiline
             textAlignVertical="top"
             onChangeText={setDescription}

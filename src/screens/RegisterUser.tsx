@@ -5,16 +5,21 @@ import {
   Button as ButtonInfo, Heading, ScrollView,
   Select, useTheme, VStack
 } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CloudArrowUp } from "phosphor-react-native";
 import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
+import { useAuth } from "../context/auth";
+
+const { KEY_STORAGE_TYPE_USER } = process.env;
 
 export function RegisterUser() {
+  const { setUserType } = useAuth();
   const [deliveries, setDeliveries] = useState('');
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
@@ -38,6 +43,18 @@ export function RegisterUser() {
 
   const { colors } = useTheme();
   const navigation = useNavigation();
+
+  const selectedUserType = () => {
+    if (selectTypeUser) {
+      setIsButtonSelected(true);
+    }
+  }
+
+  const handleNewScreen = useCallback(async () => {
+    await AsyncStorage.setItem(KEY_STORAGE_TYPE_USER, selectTypeUser);
+    setUserType(selectTypeUser);
+  }, [selectTypeUser]);
+  console.log(selectTypeUser);
 
   const handleNewAccount = () => {
     if(!email || !password || !name || !citySelected) {
@@ -70,6 +87,7 @@ export function RegisterUser() {
       .catch((error) => console.log(error))
       .finally(() => {
         setIsLoading(false);
+        handleNewScreen();
       });
   }
   
@@ -137,12 +155,6 @@ export function RegisterUser() {
         />
       </>
     );
-  }
-
-  const selectedUserType = () => {
-    if(selectTypeUser) {
-      setIsButtonSelected(true);
-    }
   }
 
   const RenderForms = () => {

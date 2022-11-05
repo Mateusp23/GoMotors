@@ -24,6 +24,7 @@ export function SignIn() {
     navigation.navigate("registerUser");
   }
 
+  console.log(userType);
   function handleSignIn() {
     if (!email || !password) {
       return Alert.alert("Entrar", "Informe e-mail e senha");
@@ -33,11 +34,12 @@ export function SignIn() {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        if (userType === 'motoboy') {
-          return navigation.navigate("homeMotoboy");
-        } else if (userType === 'restaurant') {
-          return navigation.navigate("homeRestaurant");
-        }
+        // if (userType === 'motoboy') {
+        //   return navigation.navigate("homeMotoboy");
+        // } else if (userType === 'restaurant') {
+        //   return navigation.navigate("homeRestaurant");
+        // }
+        navigation.navigate("userInformation");
       })
       .catch((error) => {
         console.log(error);
@@ -60,8 +62,8 @@ export function SignIn() {
   }
 
   function handleForgotPassword() {
-    if (!email || !password) {
-      return Alert.alert("Entrar", "Informe e-mail e senha");
+    if (!email) {
+      return Alert.alert("Recuperar senha", "Informe um e-mail");
     }
 
     auth()

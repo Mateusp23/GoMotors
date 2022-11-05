@@ -1,53 +1,44 @@
-import React, { useState, useEffect } from "react";
+import firestore from '@react-native-firebase/firestore';
 import {
-  VStack,
-  HStack,
-  Box,
-  IconButton,
-  Heading,
-  useTheme,
-  Text,
-  FlatList,
-  Center,
-  Icon,
+  Center, FlatList, Heading, HStack, Icon, Text, VStack
 } from "native-base";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Filter } from "../components/Filter";
 import { HeaderProfile } from "../components/HeaderProfile";
 
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { useAuth } from "../context/auth";
-import { Params, Profile } from "../components/ButtonInformation";
+import { useNavigation } from "@react-navigation/native";
 
 import IconMoto from "../assets/icon-moto.svg";
 import {
   OrderListMotoboys,
-  OrderMotoboyListProps,
+  OrderMotoboyListProps
 } from "../components/OrderListMotoboys";
 
 export function HomeRestaurant() {
-  const [profile, setProfile] = useState({} as Profile);
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
   const [ordersListMotoboy, setOrdersListMotoboy] =
-    useState<OrderMotoboyListProps>([
-      {
-        id: "1",
-        name: "Mateus Paulart",
-        picture: "https://github.com/Mateusp23.png",
-        status: "Disponível",
-      },
-      {
-        id: "2",
-        name: "Otávio Borges",
-        picture: "https://github.com/otavioborgsm.png",
-        status: "Em entrega",
-      },
-    ]);
-  const { colors } = useTheme();
-  const route = useRoute();
+    useState<OrderMotoboyListProps>([]);
+  
   const navigation = useNavigation();
+
+  useEffect(() => {
+    firestore()
+      .collection('users')
+      .get()
+      .then(response => {
+        const data = response.docs.map(doc => {
+          return {
+            id: doc.id,
+            ...doc.data()
+          }
+        }) as OrderMotoboyListProps[];
+
+        setOrdersListMotoboy(data);
+      }).catch(error => console.error(error));
+  }, [])
 
   const handleNewScreen = () => {
     navigation.navigate("editRestaurant");

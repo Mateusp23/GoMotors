@@ -39,7 +39,10 @@ export function SignIn() {
         // } else if (userType === 'restaurant') {
         //   return navigation.navigate("homeRestaurant");
         // }
-        navigation.navigate("userInformation");
+        // navigation.navigate("userInformation");
+        if (userType === 'restaurant') {
+          return navigation.navigate("homeRestaurant");
+        }
       })
       .catch((error) => {
         console.log(error);

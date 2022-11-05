@@ -9,7 +9,7 @@ import IconDelivery from "../assets/icon-status-on-delivery.svg";
 export type OrderMotoboyListProps = {
   id: string;
   name: string;
-  picture: string;
+  picture?: string;
   status: "Disponível" | "Em entrega";
 };
 
@@ -57,7 +57,7 @@ export function OrderListMotoboys({ data, ...rest }: Props) {
           bg="gray.600"
           alignSelf="center"
           size="md"
-          source={{ uri: data.picture }}
+          source={{ uri: data?.picture }}
           {...rest}
         />
       </HStack>

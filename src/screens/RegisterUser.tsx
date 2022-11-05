@@ -24,6 +24,7 @@ export function RegisterUser() {
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
   const [experience, setExperience] = useState('');
+  const [status, setStatus] = useState('');
 
   const [road, setRoad] = useState("");
   const [district, setDistrict] = useState("");
@@ -54,7 +55,6 @@ export function RegisterUser() {
     await AsyncStorage.setItem(KEY_STORAGE_TYPE_USER, selectTypeUser);
     setUserType(selectTypeUser);
   }, [selectTypeUser]);
-  console.log(selectTypeUser);
 
   const handleNewAccount = () => {
     if(!email || !password || !name || !citySelected) {
@@ -73,6 +73,7 @@ export function RegisterUser() {
           phone,
           pix,
           experience,
+          status,
           //restaurant 
           road,
           district,
@@ -182,6 +183,27 @@ export function RegisterUser() {
             mt={3}
             onChangeText={setExperience}
           />
+
+          <Select
+            selectedValue={status}
+            minWidth="200"
+            accessibilityLabel="Selecione seu status"
+            placeholder="Selecione seu status"
+            _selectedItem={{
+              color: "primary.700",
+            }}
+            _item={colors.primary}
+            placeholderTextColor={colors.primary[700]}
+            color={colors.primary[700]}
+            fontSize="md"
+            mt={3}
+            mb={3}
+            onValueChange={(itemValue) => setStatus(itemValue)}
+          >
+            <Select.Item shadow={1} label="Disponível" value="disponivel" />
+            <Select.Item shadow={1} label="Em entrega" value="entrega" />
+          </Select>
+
           {RenderData()}       
         </>
       );

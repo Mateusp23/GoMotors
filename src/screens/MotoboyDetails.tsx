@@ -1,3 +1,5 @@
+import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 import { ScrollView, Select, useTheme, VStack } from "native-base";
 import React, { useState } from "react";
 import { Alert } from "react-native";
@@ -15,12 +17,36 @@ export function MotoboyDetails() {
   const [typeDelivery, setTypeDelivery] = useState('');
   const [value, setValue] = useState('');
   const { colors } = useTheme();
+  const navigation = useNavigation();
 
   function handleNewDelivery() {
     if (!road || !district || !complement || !typeDelivery || !value) {
       return Alert.alert("Envio da entrega", "Preencha todos os campos.");
     }
     setIsLoading(true);
+
+    firestore()
+      .collection('deliveries')
+      .add({
+        road,
+        district,
+        complement,
+        typeDelivery,
+        isCitySelected,
+        created_at: firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        Alert.alert('Entrega', 'Solicitação de entrega enviada com sucesso');
+        navigation.goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        return Alert.alert(
+          'Entrega',
+          'Não foi possível registrar a entrega.'
+        );
+      });
   }
 
   return (

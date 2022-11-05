@@ -10,8 +10,10 @@ import { Alert } from "react-native";
 import Logo from "../assets/logo_little.svg";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
+import { useAuth } from "../context/auth";
 
 export function SignIn() {
+  const { userType, setUserType } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +33,11 @@ export function SignIn() {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        //return navigation.navigate("userInformation");
+        if (userType === 'motoboy') {
+          return navigation.navigate("homeMotoboy");
+        } else if (userType === 'restaurant') {
+          return navigation.navigate("homeRestaurant");
+        }
       })
       .catch((error) => {
         console.log(error);

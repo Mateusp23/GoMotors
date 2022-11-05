@@ -40,8 +40,7 @@ export function RegisterUser() {
   const navigation = useNavigation();
 
   const handleNewAccount = () => {
-    if(!email || !password || !name || !deliveries || !phone || !pix || !experience
-      || !road || !district || !complement || !description || !image || !citySelected) {
+    if(!email || !password || !name || !citySelected) {
         return Alert.alert("Entrar", "Preencha todos os campos.");
     }
    
@@ -51,7 +50,17 @@ export function RegisterUser() {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         Alert.alert("Conta", "Cadastrado com sucesso!");
-        firestore().collection("usersList").add({
+        firestore().collection("users").add({
+          //motoboy
+          deliveries,
+          phone,
+          pix,
+          experience,
+          //restaurant 
+          road,
+          district,
+          complement,
+          description,
           name,
           email,
           createdAt: firestore.FieldValue.serverTimestamp(),
@@ -161,7 +170,7 @@ export function RegisterUser() {
             mt={3}
             onChangeText={setExperience}
           />
-          <RenderData />        
+          {RenderData()}       
         </>
       );
     } else if(isButtonSelected && selectTypeUser === "restaurant") {
@@ -192,7 +201,7 @@ export function RegisterUser() {
             onChangeText={setDescription}
             value={description}
           />
-          <RenderData />
+          {RenderData()}
         </>
       );
     } else {

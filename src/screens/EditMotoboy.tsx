@@ -1,15 +1,14 @@
+import { VStack } from "native-base";
 import React, { useState } from "react";
-import { VStack, Heading, useTheme } from "native-base";
-import { Header } from "../components/Header";
-import { Input } from "../components/Forms/Input";
 import { Button } from "../components/Button";
+import { Input } from "../components/Forms/Input";
+import { Header } from "../components/Header";
 
 export function EditMotoboy() {
   const [deliveries, setDeliveries] = useState('');
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
   const [experience, setExperience] = useState('');
-  const { colors } = useTheme();
 
   return (
     <VStack flex={1} p={5} bg="gray.600">

@@ -1,24 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useCallback, useEffect } from "react";
 
-import { UserInformation } from "../screens/UserInformation";
-import { HomeMotoboy } from "../screens/HomeMotoboy";
-import { SignIn } from "../screens/SingIn";
-import { HomeRestaurant } from "../screens/HomeRestaurant";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../context/auth";
 import { EditMotoboy } from "../screens/EditMotoboy";
 import { EditRestaurant } from "../screens/EditRestaurant";
-import { MotoboyDetails } from "../screens/MotoboyDetails";
+import { HomeMotoboy } from "../screens/HomeMotoboy";
+import { HomeRestaurant } from "../screens/HomeRestaurant";
 import { Loading } from "../screens/Loading";
-import { RegisterUser } from "../screens/RegisterUser";
-import { useAuth } from "../context/auth";
+import { MotoboyDetails } from "../screens/MotoboyDetails";
 
 const { KEY_STORAGE_TYPE_USER } = process.env;
-import AsyncStorage from "@react-native-async-storage/async-storage";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {
   const { userType, setUserType } = useAuth();
-  const [cities, setCities] = useState("");
 
   const getTypeUser = useCallback(async () => {
     const userTypeStorage = await AsyncStorage.getItem(KEY_STORAGE_TYPE_USER);

@@ -1,19 +1,18 @@
-import React, { useState } from "react";
 import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 
+import { VStack } from "native-base";
 import { Alert } from "react-native";
-import { VStack, Heading, useTheme } from "native-base";
-import { Header } from "../components/Header";
-import { Input } from "../components/Forms/Input";
 import { Button } from "../components/Button";
+import { Input } from "../components/Forms/Input";
+import { Header } from "../components/Header";
 
 export function EditRestaurant() {
   const [road, setRoad] = useState("");
   const [district, setDistrict] = useState("");
   const [complement, setComplement] = useState("");
   const [description, setDescription] = useState("");
-  const { colors } = useTheme();
   const navigation = useNavigation();
 
   async function handleSendData() {

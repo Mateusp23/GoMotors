@@ -40,9 +40,7 @@ export function SignIn() {
         //   return navigation.navigate("homeRestaurant");
         // }
         // navigation.navigate("userInformation");
-        if (userType === 'restaurant') {
-          return navigation.navigate("homeRestaurant");
-        }
+        navigation.navigate("homeRestaurant");
       })
       .catch((error) => {
         console.log(error);

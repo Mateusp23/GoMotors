@@ -79,6 +79,8 @@ export function RegisterUser() {
           district,
           complement,
           description,
+          selectTypeUser,
+          citySelected,
           name,
           email,
           createdAt: firestore.FieldValue.serverTimestamp(),
@@ -200,8 +202,8 @@ export function RegisterUser() {
             mb={3}
             onValueChange={(itemValue) => setStatus(itemValue)}
           >
-            <Select.Item shadow={1} label="Disponível" value="disponivel" />
-            <Select.Item shadow={1} label="Em entrega" value="entrega" />
+            <Select.Item shadow={1} label="Disponível" value="Disponível" />
+            <Select.Item shadow={1} label="Em entrega" value="Em entrega" />
           </Select>
 
           {RenderData()}       

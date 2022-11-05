@@ -57,7 +57,7 @@ export function HomeRestaurant() {
       <HeaderProfile
         url="https://avatars.githubusercontent.com/u/61236430?v=4"
         title="Mateus"
-        userType="Restaurante"
+        userType="restaurante"
       />
 
       <VStack flex={1} px={6}>
@@ -80,7 +80,7 @@ export function HomeRestaurant() {
             isActive={statusSelected === "open"}
           />
           <Filter
-            type="closed"
+            type="finished"
             title="Entregas"
             onPress={() => setStatusSelected("closed")}
             isActive={statusSelected === "closed"}

@@ -40,7 +40,7 @@ export function HeaderProfile({
           auth()
             .signOut()
             .then(async () => {
-              await AsyncStorage.removeItem(KEY_STORAGE_TYPE_USER);
+              await AsyncStorage.removeItem('key');
               setUserType("");
             })
             .catch((error) => {

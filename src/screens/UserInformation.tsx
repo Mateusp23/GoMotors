@@ -1,10 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import {
   Button as ButtonInfo,
   Heading, HStack, Icon, Select, useTheme, VStack
 } from "native-base";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
 import { useAuth } from "../context/auth";
@@ -21,8 +20,6 @@ export type Profile = {
   given_name: string;
   picture: string;
 };
-
-const { KEY_STORAGE_TYPE_USER } = process.env;
 
 export function UserInformation() {
   const { setUserType } = useAuth();
@@ -44,10 +41,6 @@ export function UserInformation() {
     setIsButtonSelected(true);
   };
 
-  const handleNewScreen = useCallback(async () => {
-    await AsyncStorage.setItem(KEY_STORAGE_TYPE_USER, selectTypeUser);
-    setUserType(selectTypeUser);
-  }, [selectTypeUser]);
 
   return (
     <VStack flex={1} p={6} bg="gray.600">

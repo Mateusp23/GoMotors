@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from "react";
-import {
-  VStack,
-  HStack,
-  Box,
-  IconButton,
-  Heading,
-  useTheme,
-  Text,
-  FlatList,
-  Center,
-  Icon,
-} from "native-base";
-import { Header } from "../components/Header";
-import { Filter } from "../components/Filter";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useAuth } from "../context/auth";
+import {
+  Center, FlatList, Heading, HStack, Icon, Text, useTheme, VStack
+} from "native-base";
+import React, { useState } from "react";
+import { Filter } from "../components/Filter";
 
 import IconMoto from "../assets/icon-moto.svg";
 
 import { Button } from "../components/Button";
 import { HeaderProfile } from "../components/HeaderProfile";
-import { Params, Profile } from "../components/ButtonInformation";
 
 export function HomeMotoboy() {
-  const [profile, setProfile] = useState({} as Profile);
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
@@ -41,7 +28,7 @@ export function HomeMotoboy() {
       <HeaderProfile
         url="https://avatars.githubusercontent.com/u/61236430?v=4"
         title="Mateus"
-        userType="Motoboy"
+        userType="motoboy"
       />
 
       <VStack flex={1} px={6}>

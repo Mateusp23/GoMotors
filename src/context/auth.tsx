@@ -1,11 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  createContext, useCallback, useContext, useEffect, useState
+} from "react";
 
 const { KEY_STORAGE_TYPE_USER } = process.env;
 
@@ -27,7 +23,7 @@ function AuthProvider({ children }) {
   const [userType, setUserType] = useState("");
 
   const getTypeUser = useCallback(async () => {
-    const userTypeStorage = await AsyncStorage.getItem(KEY_STORAGE_TYPE_USER);
+    const userTypeStorage = await AsyncStorage.getItem('key');
     setUserType(userTypeStorage);
   }, []);
 

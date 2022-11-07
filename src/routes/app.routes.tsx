@@ -17,7 +17,7 @@ export function AppRoutes() {
   const { userType, setUserType } = useAuth();
 
   const getTypeUser = useCallback(async () => {
-    const userTypeStorage = await AsyncStorage.getItem(KEY_STORAGE_TYPE_USER);
+    const userTypeStorage = await AsyncStorage.getItem('key');
     setUserType(userTypeStorage);
   }, []);
 

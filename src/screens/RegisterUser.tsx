@@ -7,7 +7,6 @@ import {
 } from "native-base";
 import React, { useCallback, useEffect, useState } from "react";
 
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CloudArrowUp } from "phosphor-react-native";
 import { Alert } from "react-native";
@@ -15,8 +14,6 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
 import { useAuth } from "../context/auth";
-
-const { KEY_STORAGE_TYPE_USER } = process.env;
 
 export function RegisterUser() {
   const { setUserType } = useAuth();
@@ -52,7 +49,7 @@ export function RegisterUser() {
   }
 
   const handleNewScreen = useCallback(async () => {
-    await AsyncStorage.setItem(KEY_STORAGE_TYPE_USER, selectTypeUser);
+    await AsyncStorage.setItem('key', selectTypeUser);
     setUserType(selectTypeUser);
   }, [selectTypeUser]);
 

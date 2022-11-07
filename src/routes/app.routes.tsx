@@ -10,7 +10,6 @@ import { HomeRestaurant } from "../screens/HomeRestaurant";
 import { Loading } from "../screens/Loading";
 import { MotoboyDetails } from "../screens/MotoboyDetails";
 
-const { KEY_STORAGE_TYPE_USER } = process.env;
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {

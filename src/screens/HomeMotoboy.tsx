@@ -18,7 +18,6 @@ export function HomeMotoboy() {
   );
   const [ordersListRestaurant, setOrdersListRestaurant] =
     useState([]);
-  const [orders, setOrders] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {

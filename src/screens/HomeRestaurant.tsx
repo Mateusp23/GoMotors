@@ -16,13 +16,46 @@ import {
 } from "../components/OrderListMotoboys";
 
 export function HomeRestaurant() {
-  const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
-    "open"
+  const [statusSelected, setStatusSelected] = useState<'Em entrega' | 'Finalizada'>(
+    'Em entrega'
   );
   const [ordersListMotoboy, setOrdersListMotoboy] =
     useState<OrderMotoboyListProps>([]);
   
   const navigation = useNavigation();
+  
+
+  const handleNewScreen = () => {
+    navigation.navigate("editRestaurant");
+  };
+
+  // function handleOpenDetails(orderId: string) {
+  //   navigation.navigate('details', { orderId });
+  // .where('status', '==', statusSelected)
+  // }
+
+  function handleOpenMotoboyDetails() {
+    navigation.navigate("motoboyDetails");
+  }
+
+  // function handleFinishedDeliveries() {
+  //   setStatusSelected("Finalizada");
+    
+  //   const subscribe = firestore()
+  //     .collection('users')
+  //     .where('status', '==', 'Finalizada')
+  //     .onSnapshot(querySnapshot => {
+  //       const data = querySnapshot.docs.map((doc) => {
+  //         return {
+  //           id: doc.id,
+  //           ...doc.data()
+  //         }
+  //       }) as OrderMotoboyListProps[];
+  //       setOrdersListMotoboy(data);
+  //     });
+
+  //   return () => subscribe();
+  // }
 
   useEffect(() => {
     const subscribe = firestore()
@@ -38,21 +71,9 @@ export function HomeRestaurant() {
 
         setOrdersListMotoboy(data);
       });
-    
+
     return () => subscribe();
-  }, [])
-
-  const handleNewScreen = () => {
-    navigation.navigate("editRestaurant");
-  };
-
-  // function handleOpenDetails(orderId: string) {
-  //   navigation.navigate('details', { orderId });
-  // }
-
-  function handleOpenMotoboyDetails() {
-    navigation.navigate("motoboyDetails");
-  }
+  }, []);
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -76,16 +97,16 @@ export function HomeRestaurant() {
 
         <HStack space={3} mb={8} mt={4}>
           <Filter
-            type="open"
+            type="Em entrega"
             title="Lista de Motoboys"
-            onPress={() => setStatusSelected("open")}
-            isActive={statusSelected === "open"}
+            onPress={() => setStatusSelected('Em entrega')}
+            isActive={statusSelected === "Em entrega"}
           />
           <Filter
-            type="finished"
-            title="Entregas"
-            onPress={() => setStatusSelected("closed")}
-            isActive={statusSelected === "closed"}
+            type="Finalizada"
+            title="Entregas Finalizadas"
+            isActive={statusSelected === "Finalizada"}
+            onPress={() => setStatusSelected("Finalizada")}
           />
         </HStack>
 

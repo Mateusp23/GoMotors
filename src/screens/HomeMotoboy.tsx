@@ -1,23 +1,44 @@
-import { useNavigation, useRoute } from "@react-navigation/native";
+import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from "@react-navigation/native";
 import {
-  Center, FlatList, Heading, HStack, Icon, Text, useTheme, VStack
+  Center, FlatList, Heading, HStack, Icon, Text, VStack
 } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Filter } from "../components/Filter";
 
 import IconMoto from "../assets/icon-moto.svg";
 
 import { Button } from "../components/Button";
 import { HeaderProfile } from "../components/HeaderProfile";
+import { OrderListRestaurants } from '../components/OrderListRestaurants';
 
 export function HomeMotoboy() {
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
+  const [ordersListRestaurant, setOrdersListRestaurant] =
+    useState([]);
   const [orders, setOrders] = useState([]);
-  const { colors } = useTheme();
-  const route = useRoute();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const subscribe = firestore()
+      .collection('users')
+      .where('selectTypeUser', '==', 'restaurant')
+      .onSnapshot(querySnapshot => {
+        const data = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data()
+          }
+        });
+
+        setOrdersListRestaurant(data);
+        console.log(data);
+      });
+
+    return () => subscribe();
+  }, [])
 
   const handleNewScreen = () => {
     navigation.navigate("editMotoboy");
@@ -54,7 +75,7 @@ export function HomeMotoboy() {
             isActive={statusSelected === "open"}
           />
           <Filter
-            type="closed"
+            type="finished"
             title="Finalizados"
             onPress={() => setStatusSelected("closed")}
             isActive={statusSelected === "closed"}
@@ -62,9 +83,14 @@ export function HomeMotoboy() {
         </HStack>
 
         <FlatList
-          data={orders}
-          //keyExtractor={item => item.id}
-          //renderItem={({ item }) => <Order data={item} onPress={() => handleOpenDetails(item.id)} />}
+          data={ordersListRestaurant}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <OrderListRestaurants
+              data={item}
+              onPress={() => {}}
+            />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (

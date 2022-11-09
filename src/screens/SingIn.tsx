@@ -23,8 +23,7 @@ export function SignIn() {
   function handleRegisterUser() {
     navigation.navigate("registerUser");
   }
-
-  console.log(userType);
+  
   function handleSignIn() {
     if (!email || !password) {
       return Alert.alert("Entrar", "Informe e-mail e senha");

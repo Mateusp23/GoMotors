@@ -3,8 +3,6 @@ import {
   createContext, useCallback, useContext, useEffect, useState
 } from "react";
 
-const { KEY_STORAGE_TYPE_USER } = process.env;
-
 export interface AuthProps {
   name: string;
   email: string;

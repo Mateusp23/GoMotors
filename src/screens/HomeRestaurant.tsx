@@ -25,11 +25,11 @@ export function HomeRestaurant() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    firestore()
+    const subscribe = firestore()
       .collection('users')
-      .get()
-      .then(response => {
-        const data = response.docs.map(doc => {
+      .where('selectTypeUser', '==', 'motoboy')
+      .onSnapshot(querySnapshot => {
+        const data = querySnapshot.docs.map((doc) => {
           return {
             id: doc.id,
             ...doc.data()
@@ -37,7 +37,9 @@ export function HomeRestaurant() {
         }) as OrderMotoboyListProps[];
 
         setOrdersListMotoboy(data);
-      }).catch(error => console.error(error));
+      });
+    
+    return () => subscribe();
   }, [])
 
   const handleNewScreen = () => {

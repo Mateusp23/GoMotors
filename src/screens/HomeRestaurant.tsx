@@ -126,7 +126,7 @@ export function HomeRestaurant() {
               <Icon as={<IconMoto size={32} />} />
               <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
                 Não há {"\n"}
-                {statusSelected === "open"
+                {statusSelected === "Em entrega"
                   ? "entregadores no momento"
                   : "entregas finalizadas"}
               </Text>

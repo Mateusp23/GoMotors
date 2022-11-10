@@ -10,17 +10,19 @@ import { HeaderProfile } from "../components/HeaderProfile";
 import { useNavigation } from "@react-navigation/native";
 
 import IconMoto from "../assets/icon-moto.svg";
+import { Loading } from '../components/Loading';
 import {
   OrderListMotoboys,
   OrderMotoboyListProps
 } from "../components/OrderListMotoboys";
 
 export function HomeRestaurant() {
+  const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'Em entrega' | 'Finalizada'>(
     'Em entrega'
   );
   const [ordersListMotoboy, setOrdersListMotoboy] =
-    useState<OrderMotoboyListProps>([]);
+    useState<OrderMotoboyListProps[]>([]);
   
   const navigation = useNavigation();
   
@@ -29,35 +31,13 @@ export function HomeRestaurant() {
     navigation.navigate("editRestaurant");
   };
 
-  // function handleOpenDetails(orderId: string) {
-  //   navigation.navigate('details', { orderId });
-  // .where('status', '==', statusSelected)
-  // }
-
-  function handleOpenMotoboyDetails() {
-    navigation.navigate("motoboyDetails");
+  function handleOpenMotoboyDetails(orderIdMotoboy: string) {
+    navigation.navigate('motoboyDetails', { orderIdMotoboy });
   }
 
-  // function handleFinishedDeliveries() {
-  //   setStatusSelected("Finalizada");
-    
-  //   const subscribe = firestore()
-  //     .collection('users')
-  //     .where('status', '==', 'Finalizada')
-  //     .onSnapshot(querySnapshot => {
-  //       const data = querySnapshot.docs.map((doc) => {
-  //         return {
-  //           id: doc.id,
-  //           ...doc.data()
-  //         }
-  //       }) as OrderMotoboyListProps[];
-  //       setOrdersListMotoboy(data);
-  //     });
-
-  //   return () => subscribe();
-  // }
-
   useEffect(() => {
+    setIsLoading(true);
+
     const subscribe = firestore()
       .collection('users')
       .where('selectTypeUser', '==', 'motoboy')
@@ -70,6 +50,7 @@ export function HomeRestaurant() {
         }) as OrderMotoboyListProps[];
 
         setOrdersListMotoboy(data);
+        setIsLoading(false);
       });
 
     return () => subscribe();
@@ -110,30 +91,34 @@ export function HomeRestaurant() {
           />
         </HStack>
 
-        <FlatList
-          data={ordersListMotoboy}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <OrderListMotoboys
-              data={item}
-              onPress={() => handleOpenMotoboyDetails()}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
-          ListEmptyComponent={() => (
-            <Center>
-              <Icon as={<IconMoto size={32} />} />
-              <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                Não há {"\n"}
-                {statusSelected === "Em entrega"
-                  ? "entregadores no momento"
-                  : "entregas finalizadas"}
-              </Text>
-            </Center>
-          )}
-        />
-
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <FlatList
+            data={ordersListMotoboy}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <OrderListMotoboys
+                data={item}
+                onPress={() => handleOpenMotoboyDetails(item.id)}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 100 }}
+            ListEmptyComponent={() => (
+              <Center>
+                <Icon as={<IconMoto />} />
+                <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+                  Não há {"\n"}
+                  {statusSelected === "Em entrega"
+                    ? "entregadores no momento"
+                    : "entregas finalizadas"}
+                </Text>
+              </Center>
+            )}
+          />
+        )}
+        
         <Button
           bgColor="primary.700"
           title="Minhas informações"

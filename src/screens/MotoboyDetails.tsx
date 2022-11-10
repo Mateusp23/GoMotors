@@ -1,11 +1,16 @@
 import firestore from '@react-native-firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
-import { ScrollView, Select, useTheme, VStack } from "native-base";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ScrollView, Select, Text, useTheme, VStack } from "native-base";
+
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
+
+type RouteParams = {
+  orderIdMotoboy: string;
+}
 
 // tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
 export function MotoboyDetails() {
@@ -18,6 +23,9 @@ export function MotoboyDetails() {
   const [value, setValue] = useState('');
   const { colors } = useTheme();
   const navigation = useNavigation();
+  
+  const route = useRoute();
+  const { orderIdMotoboy } = route.params as RouteParams;
 
   function handleNewDelivery() {
     if (!road || !district || !complement || !typeDelivery || !value) {
@@ -57,6 +65,7 @@ export function MotoboyDetails() {
         {/* <OrderListMotoboys data={[]} onPress={() => {}} /> */}
 
         <Header isBackScreen={false} title="Envio da Entrega" />
+        <Text color="white">{orderIdMotoboy}</Text>
 
         <Select
           selectedValue={isCitySelected}

@@ -22,6 +22,7 @@ export function AppRoutes() {
 
   useEffect(() => {
     getTypeUser();
+    console.log(userType);
   }, []);
 
   return (

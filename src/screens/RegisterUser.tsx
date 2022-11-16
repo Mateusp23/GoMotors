@@ -54,6 +54,7 @@ export function RegisterUser() {
   }, [selectTypeUser]);
 
   const handleNewAccount = () => {
+    console.log("tipo user:", selectTypeUser);
     if(!email || !password || !name || !citySelected) {
         return Alert.alert("Entrar", "Preencha todos os campos.");
     }
@@ -82,7 +83,6 @@ export function RegisterUser() {
           email,
           createdAt: firestore.FieldValue.serverTimestamp(),
         });
-        navigation.goBack();
       })
       .catch((error) => console.log(error))
       .finally(() => {

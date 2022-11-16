@@ -23,7 +23,7 @@ function AuthProvider({ children }) {
   const getTypeUser = useCallback(async () => {
     const userTypeStorage = await AsyncStorage.getItem('key');
     setUserType(userTypeStorage);
-  }, []);
+  }, [userType]);
 
   const signIn = ({ name, email, id, given_name, picture }: AuthProps) => {
     setUser({

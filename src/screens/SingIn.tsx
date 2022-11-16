@@ -4,16 +4,18 @@ import {
   Button as ButtonNative, Heading, HStack, Icon, Text, useTheme, VStack
 } from "native-base";
 import { Envelope, Key } from "phosphor-react-native";
-import React, { useState } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 import Logo from "../assets/logo_little.svg";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
-import { useAuth } from "../context/auth";
 
 export function SignIn() {
-  const { userType, setUserType } = useAuth();
+  // const { userType, setUserType } = useAuth();
+  const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,16 @@ export function SignIn() {
     navigation.navigate("registerUser");
   }
   
+  const getTypeUser = useCallback(async () => {
+    const userTypeStorage = await AsyncStorage.getItem('key');
+    setUserType(userTypeStorage);
+  }, [userType]);
+
+  useEffect(() => {
+    getTypeUser();
+    console.log("tipo user:", userType);
+  }, []);
+
   function handleSignIn() {
     if (!email || !password) {
       return Alert.alert("Entrar", "Informe e-mail e senha");
@@ -33,13 +45,13 @@ export function SignIn() {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        // if (userType === 'motoboy') {
-        //   return navigation.navigate("homeMotoboy");
-        // } else if (userType === 'restaurant') {
-        //   return navigation.navigate("homeRestaurant");
-        // }
-        // navigation.navigate("userInformation");
-        navigation.navigate("homeRestaurant");
+        if (userType === 'motoboy') {
+          return navigation.navigate("homeMotoboy");
+        } else if (userType === 'restaurant') {
+          return navigation.navigate("homeRestaurant");
+        } else {
+          handleRegisterUser()
+        }
       })
       .catch((error) => {
         console.log(error);

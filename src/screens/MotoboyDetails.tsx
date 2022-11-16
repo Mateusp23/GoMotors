@@ -2,14 +2,25 @@ import firestore from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView, Select, Text, useTheme, VStack } from "native-base";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
 
+import { dateFormat } from '../utils/firestoreDateFormat';
+
 type RouteParams = {
   orderIdMotoboy: string;
+}
+
+type MotoboyInfosListProps = {
+  name: string;
+  phone: string;
+  experience: string;
+  status: string;
+  pix: string;
+  citySelected: string;
 }
 
 // tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
@@ -24,6 +35,8 @@ export function MotoboyDetails() {
   const { colors } = useTheme();
   const navigation = useNavigation();
   
+  const [motoboyInfosList, setMotoboyInfosList] =
+    useState<MotoboyInfosListProps>('');
   const route = useRoute();
   const { orderIdMotoboy } = route.params as RouteParams;
 
@@ -40,6 +53,7 @@ export function MotoboyDetails() {
         district,
         complement,
         typeDelivery,
+        value,
         isCitySelected,
         created_at: firestore.FieldValue.serverTimestamp(),
       })
@@ -56,6 +70,32 @@ export function MotoboyDetails() {
         );
       });
   }
+
+  useEffect(() => { 
+    setIsLoading(true);
+
+    const subscriber = firestore()
+      .collection('users')
+      .onSnapshot(snapshot => {
+        const data = snapshot.docs.map(doc => {
+          const { name, phone, experience, status, pix, citySelected, created_at } = doc.data();
+
+          return {
+            name,
+            phone,
+            experience,
+            status,
+            pix,
+            citySelected,
+            startDate: dateFormat(created_at)
+          }
+        })
+        setMotoboyInfosList(data);
+        setIsLoading(false);
+      });
+    
+    return subscriber;
+  }, []);
 
   return (
     <VStack flex={1} p={5} bg="gray.700">

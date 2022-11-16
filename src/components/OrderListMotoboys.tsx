@@ -11,6 +11,7 @@ export type OrderMotoboyListProps = {
   name: string;
   picture?: string;
   status: "Disponível" | "Em entrega";
+  startDate?: string;
 };
 
 type Props = IPressableProps & {

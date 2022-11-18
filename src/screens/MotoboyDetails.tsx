@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore';
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ScrollView, Select, Text, useTheme, VStack } from "native-base";
 
@@ -8,19 +8,19 @@ import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
 
-import { dateFormat } from '../utils/firestoreDateFormat';
-
 type RouteParams = {
   orderIdMotoboy: string;
 }
 
 type MotoboyInfosListProps = {
+  id: string;
   name: string;
   phone: string;
   experience: string;
   status: string;
   pix: string;
   citySelected: string;
+  created_at: FirebaseFirestoreTypes.Timestamp;
 }
 
 // tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
@@ -36,7 +36,7 @@ export function MotoboyDetails() {
   const navigation = useNavigation();
   
   const [motoboyInfosList, setMotoboyInfosList] =
-    useState<MotoboyInfosListProps>('');
+    useState<MotoboyInfosListProps>({} as MotoboyInfosListProps);
   const route = useRoute();
   const { orderIdMotoboy } = route.params as RouteParams;
 
@@ -55,6 +55,7 @@ export function MotoboyDetails() {
         typeDelivery,
         value,
         isCitySelected,
+        orderIdMotoboy,
         created_at: firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
@@ -74,38 +75,49 @@ export function MotoboyDetails() {
   useEffect(() => { 
     setIsLoading(true);
 
-    const subscriber = firestore()
+    firestore()
       .collection('users')
-      .onSnapshot(snapshot => {
-        const data = snapshot.docs.map(doc => {
-          const { name, phone, experience, status, pix, citySelected, created_at } = doc.data();
+      .doc(orderIdMotoboy)
+      .get()
+      .then((doc) => {
+        const {
+          name,
+          phone,
+          experience,
+          status,
+          pix,
+          citySelected,
+          created_at
+        } = doc.data();
 
-          return {
-            name,
-            phone,
-            experience,
-            status,
-            pix,
-            citySelected,
-            startDate: dateFormat(created_at)
-          }
-        })
-        setMotoboyInfosList(data);
+        setMotoboyInfosList({
+          id: doc.id,
+          name,
+          phone,
+          experience,
+          status,
+          pix,
+          citySelected,
+          created_at
+        });
         setIsLoading(false);
       });
-    
-    return subscriber;
-  }, []);
+    }, []);
+    console.log('dados:', motoboyInfosList)
 
   return (
     <VStack flex={1} p={5} bg="gray.700">
       <ScrollView bg="gray.700" w="full" showsVerticalScrollIndicator={false}>
         <Header isBackScreen title="Detalhes do Motoboy" />
 
-        {/* <OrderListMotoboys data={[]} onPress={() => {}} /> */}
+        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.name}</Text>
+        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.phone}</Text>
+        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.experience}</Text>
+        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.status}</Text>
+        <Text color="white" mb={4} textTransform="uppercase" fontSize="md" >{motoboyInfosList?.citySelected}</Text>
+        <Text color="white" fontSize="md" >{motoboyInfosList?.pix}</Text>
 
         <Header isBackScreen={false} title="Envio da Entrega" />
-        <Text color="white">{orderIdMotoboy}</Text>
 
         <Select
           selectedValue={isCitySelected}

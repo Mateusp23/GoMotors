@@ -103,19 +103,18 @@ export function MotoboyDetails() {
         setIsLoading(false);
       });
     }, []);
-    console.log('dados:', motoboyInfosList)
 
   return (
     <VStack flex={1} p={5} bg="gray.700">
       <ScrollView bg="gray.700" w="full" showsVerticalScrollIndicator={false}>
         <Header isBackScreen title="Detalhes do Motoboy" />
 
-        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.name}</Text>
-        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.phone}</Text>
-        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.experience}</Text>
-        <Text color="white" mb={4} fontSize="md" >{motoboyInfosList?.status}</Text>
-        <Text color="white" mb={4} textTransform="uppercase" fontSize="md" >{motoboyInfosList?.citySelected}</Text>
-        <Text color="white" fontSize="md" >{motoboyInfosList?.pix}</Text>
+        <Text color="white" mb={4} fontSize="md" >{`Nome: ${motoboyInfosList?.name}`}</Text>
+        <Text color="white" mb={4} fontSize="md" >{`Telefone: ${motoboyInfosList?.phone}`}</Text>
+        <Text color="white" mb={4} fontSize="md" >{`Experiência: ${motoboyInfosList?.experience}`}</Text>
+        <Text color="white" mb={4} fontSize="md" >{`Status: ${motoboyInfosList?.status}`}</Text>
+        <Text color="white" mb={4} textTransform="uppercase" fontSize="md" >{`Cidade: ${motoboyInfosList?.citySelected}`}</Text>
+        <Text color="white" fontSize="md" >{`Pix: ${motoboyInfosList?.pix}`}</Text>
 
         <Header isBackScreen={false} title="Envio da Entrega" />
 

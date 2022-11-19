@@ -1,19 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import auth from "@react-native-firebase/auth";
 import {
-  Avatar, Heading, HStack, IAvatarProps,
-  IconButton,
-  Text, useTheme, VStack
+  HStack, IAvatarProps,
+  IconButton, useTheme, VStack
 } from "native-base";
+
 import { SignOut } from "phosphor-react-native";
 import { Alert } from "react-native";
+import Logo from '../assets/logo.svg';
 import { useAuth } from "../context/auth";
-
-const { KEY_STORAGE_TYPE_USER } = process.env;
 
 type HeaderProfileProps = IAvatarProps & {
   title: string;
-  url: string;
+  url: any;
   userType: "restaurante" | "motoboy";
 };
 
@@ -63,20 +62,18 @@ export function HeaderProfile({
       px={6}
     >
       <HStack justifyContent="center" alignItems="center">
-        <Avatar
+        {/* <Avatar
           bg="gray.600"
           alignSelf="center"
           size="md"
           source={{ uri: url }}
           {...rest}
-        />
+        /> */}
+          <Logo />
         <VStack>
-          <Heading ml={4} fontSize="md" color={colors.white}>
-            Olá, {title}
-          </Heading>
-          <Text ml={4} textTransform="uppercase" fontSize="md" color={colors.gray[300]} >
+          {/* <Text ml={4} textTransform="uppercase" fontSize="md" color={colors.gray[300]} >
             {userType}
-          </Text>
+          </Text> */}
         </VStack>
       </HStack>
       <IconButton

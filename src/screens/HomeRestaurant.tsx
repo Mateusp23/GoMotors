@@ -4,7 +4,6 @@ import {
 } from "native-base";
 import React, { useEffect, useState } from "react";
 import { Button } from "../components/Button";
-import { Filter } from "../components/Filter";
 import { HeaderProfile } from "../components/HeaderProfile";
 
 import { useNavigation } from "@react-navigation/native";
@@ -16,6 +15,10 @@ import {
   OrderMotoboyListProps
 } from "../components/OrderListMotoboys";
 
+type RouteParams = {
+  email: any;
+}
+
 export function HomeRestaurant() {
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'Em entrega' | 'Finalizada'>(
@@ -25,7 +28,6 @@ export function HomeRestaurant() {
     useState<OrderMotoboyListProps[]>([]);
   
   const navigation = useNavigation();
-  
 
   const handleNewScreen = () => {
     navigation.navigate("editRestaurant");
@@ -60,11 +62,11 @@ export function HomeRestaurant() {
     <VStack flex={1} pb={6} bg="gray.700">
       <HeaderProfile
         url="https://avatars.githubusercontent.com/u/61236430?v=4"
-        title="Mateus"
+        title=""
         userType="restaurante"
       />
 
-      <VStack flex={1} px={6}>
+      <VStack flex={1} px={6} mt={4}>
         <HStack
           w="full"
           mt={3}
@@ -74,21 +76,6 @@ export function HomeRestaurant() {
         >
           <Heading color="gray.100">Lista de motoboys</Heading>
           <Text color="gray.200">{ordersListMotoboy.length}</Text>
-        </HStack>
-
-        <HStack space={3} mb={8} mt={4}>
-          <Filter
-            type="Em entrega"
-            title="Lista de Motoboys"
-            onPress={() => setStatusSelected('Em entrega')}
-            isActive={statusSelected === "Em entrega"}
-          />
-          <Filter
-            type="Finalizada"
-            title="Entregas Finalizadas"
-            isActive={statusSelected === "Finalizada"}
-            onPress={() => setStatusSelected("Finalizada")}
-          />
         </HStack>
 
         {isLoading ? (
@@ -105,6 +92,7 @@ export function HomeRestaurant() {
             )}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 100 }}
+            mt={4}
             ListEmptyComponent={() => (
               <Center>
                 <Icon as={<IconMoto />} />

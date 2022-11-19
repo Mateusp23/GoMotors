@@ -2,13 +2,12 @@ import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import {
-  Button as ButtonInfo, Heading, ScrollView,
+  ScrollView,
   Select, useTheme, VStack
 } from "native-base";
 import React, { useCallback, useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CloudArrowUp } from "phosphor-react-native";
 import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
@@ -119,7 +118,7 @@ export function RegisterUser() {
           <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
           <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
         </Select>
-        <ButtonInfo 
+        {/* <ButtonInfo 
           bg="gray.700"
           h={14}
           fontSize="sm"
@@ -132,7 +131,7 @@ export function RegisterUser() {
           <Heading color="primary.700" fontSize="md">
             Upload da sua imagem
           </Heading>
-        </ButtonInfo>
+        </ButtonInfo> */}
         <Input
           mb={4}
           placeholder="E-mail"

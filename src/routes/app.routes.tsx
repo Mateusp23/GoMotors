@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAuth } from "../context/auth";
 import { EditMotoboy } from "../screens/EditMotoboy";
 import { EditRestaurant } from "../screens/EditRestaurant";
 import { HomeMotoboy } from "../screens/HomeMotoboy";
@@ -13,7 +12,8 @@ import { MotoboyDetails } from "../screens/MotoboyDetails";
 const { Navigator, Screen } = createNativeStackNavigator();
 
 export function AppRoutes() {
-  const { userType, setUserType } = useAuth();
+  // const { userType, setUserType } = useAuth();
+  const [userType, setUserType] = useState("");
 
   const getTypeUser = useCallback(async () => {
     const userTypeStorage = await AsyncStorage.getItem('key');
@@ -22,8 +22,8 @@ export function AppRoutes() {
 
   useEffect(() => {
     getTypeUser();
-    console.log(userType);
-  }, []);
+    console.log("user app routes", userType);
+  }, [userType]);
 
   return (
     <>

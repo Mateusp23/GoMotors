@@ -21,7 +21,7 @@ export function Routes() {
 
     return subscriber;
   }, []);
-
+  console.log("user:", user);
 
   const getTypeUser = useCallback(async () => {
     const userTypeStorage = await AsyncStorage.getItem('key');
@@ -38,7 +38,6 @@ export function Routes() {
   }
 
   if (user && userType !== "") {
-    console.log("caiu")
     return <AppRoutes />;
   }
 

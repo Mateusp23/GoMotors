@@ -1,5 +1,5 @@
 import auth from "@react-native-firebase/auth";
-import firestore from "@react-native-firebase/firestore";
+import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from "@react-navigation/native";
 import {
   ScrollView,
@@ -62,9 +62,10 @@ export function RegisterUser() {
 
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((response) => {
+        console.log('response', response.user.uid)
         Alert.alert("Conta", "Cadastrado com sucesso!");
-        firestore().collection("users").add({
+        firestore().collection("users").doc(response.user.uid).set({
           //motoboy
           deliveries,
           phone,

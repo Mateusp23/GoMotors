@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import auth from "@react-native-firebase/auth";
 import {
   HStack, IAvatarProps,
-  IconButton, useTheme, VStack
+  IconButton, useTheme
 } from "native-base";
 
 import { SignOut } from "phosphor-react-native";
@@ -70,11 +70,11 @@ export function HeaderProfile({
           {...rest}
         /> */}
           <Logo />
-        <VStack>
-          {/* <Text ml={4} textTransform="uppercase" fontSize="md" color={colors.gray[300]} >
+        {/* <VStack>
+          <Text ml={4} textTransform="uppercase" fontSize="md" color={colors.gray[300]} >
             {userType}
-          </Text> */}
-        </VStack>
+          </Text>
+        </VStack> */}
       </HStack>
       <IconButton
         icon={<SignOut size={26} color={colors.gray[300]} />}

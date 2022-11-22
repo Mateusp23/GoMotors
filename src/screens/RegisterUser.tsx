@@ -53,7 +53,6 @@ export function RegisterUser() {
   }, [selectTypeUser]);
 
   const handleNewAccount = () => {
-    console.log("tipo user:", selectTypeUser);
     if(!email || !password || !name || !citySelected) {
         return Alert.alert("Entrar", "Preencha todos os campos.");
     }
@@ -63,26 +62,28 @@ export function RegisterUser() {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log('response', response.user.uid)
         Alert.alert("Conta", "Cadastrado com sucesso!");
-        firestore().collection("users").doc(response.user.uid).set({
-          //motoboy
-          deliveries,
-          phone,
-          pix,
-          experience,
-          status,
-          //restaurant 
-          road,
-          district,
-          complement,
-          description,
-          selectTypeUser,
-          citySelected,
-          name,
-          email,
-          createdAt: firestore.FieldValue.serverTimestamp(),
-        });
+        firestore()
+          .collection("users")
+          .doc(response.user.uid)
+          .set({
+            //motoboy
+            deliveries,
+            phone,
+            pix,
+            experience,
+            status,
+            //restaurant 
+            road,
+            district,
+            complement,
+            description,
+            selectTypeUser,
+            citySelected,
+            name,
+            email,
+            createdAt: firestore.FieldValue.serverTimestamp(),
+          });
       })
       .catch((error) => console.log(error))
       .finally(() => {

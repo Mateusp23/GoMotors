@@ -1,5 +1,7 @@
 import auth from "@react-native-firebase/auth";
+import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from "@react-navigation/native";
+
 import {
   Button as ButtonNative, Heading, HStack, Icon, Text, useTheme, VStack
 } from "native-base";
@@ -13,8 +15,15 @@ import Logo from "../assets/logo_little.svg";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 
+type User = {
+  id: string;
+  name: string;
+  selectTypeUser: "motoboy" | "restaurant";
+}
+
 export function SignIn() {
   // const { userType, setUserType } = useAuth();
+  const [user, setUser] = useState<User | null>(null);
   const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -33,7 +42,6 @@ export function SignIn() {
 
   useEffect(() => {
     getTypeUser();
-    console.log("tipo user:", userType);
   }, []);
 
   function handleSignIn() {
@@ -44,18 +52,36 @@ export function SignIn() {
     setIsLoading(true);
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        if (userType === 'motoboy') {
-          return navigation.navigate("homeMotoboy");
-        } else if (userType === 'restaurant') {
-          return navigation.navigate("homeRestaurant");
-        } else {
-          handleRegisterUser()
-        }
+      .then(account => {
+        firestore()
+          .collection('users')
+          .doc(account.user.uid)
+          .get()
+          .then(profile => {
+            const { name, selectTypeUser } = profile.data() as User;
+
+            if (profile.exists) {
+              const userData = {
+                id: account.user.uid,
+                name,
+                selectTypeUser,
+              }
+              console.log('dados da conta:', userData);
+              console.log('tipo usuario:', selectTypeUser);
+              setUser(userData);
+
+              if (selectTypeUser === 'motoboy') {
+                navigation.navigate('homeMotoboy');
+              } else if (selectTypeUser === 'restaurant') {
+                navigation.navigate('homeRestaurant');
+              } else {
+                return null;
+              }
+            }
+          })
       })
       .catch((error) => {
         console.log(error);
-        setIsLoading(false);
 
         if (error.code === "auth/invalid-email") {
           return Alert.alert("Entrar", "E-mail inválido.");
@@ -70,7 +96,8 @@ export function SignIn() {
         }
 
         return Alert.alert("Entrar", "Não foi possível acessar");
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleForgotPassword() {

@@ -4,7 +4,6 @@ import {
   Center, FlatList, Heading, HStack, Icon, Text, VStack
 } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Filter } from "../components/Filter";
 
 import IconMoto from "../assets/icon-moto.svg";
 
@@ -12,7 +11,9 @@ import { Button } from "../components/Button";
 import { HeaderProfile } from "../components/HeaderProfile";
 import { OrderListRestaurants } from '../components/OrderListRestaurants';
 
-export function HomeMotoboy() {
+export function HomeMotoboy({ route }: any) {
+  const params = route?.params;
+  console.log("id", params?.userData.id);
   const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
     "open"
   );
@@ -33,14 +34,13 @@ export function HomeMotoboy() {
         });
 
         setOrdersListRestaurant(data);
-        console.log(data);
       });
 
     return () => subscribe();
   }, [])
 
   const handleNewScreen = () => {
-    navigation.navigate("editMotoboy");
+    navigation.navigate("editMotoboy", { id: params.userData?.id });
   };
 
   return (
@@ -66,7 +66,7 @@ export function HomeMotoboy() {
           <Text color="gray.200">2</Text>
         </HStack>
 
-        <HStack space={3} mb={8}>
+        {/* <HStack space={3} mb={8}>
           <Filter
             type="open"
             title="Em andamento"
@@ -79,7 +79,7 @@ export function HomeMotoboy() {
             onPress={() => setStatusSelected("closed")}
             isActive={statusSelected === "closed"}
           />
-        </HStack>
+        </HStack> */}
 
         <FlatList
           data={ordersListRestaurant}

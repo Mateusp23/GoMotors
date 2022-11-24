@@ -15,10 +15,6 @@ import {
   OrderMotoboyListProps
 } from "../components/OrderListMotoboys";
 
-type RouteParams = {
-  email: any;
-}
-
 export function HomeRestaurant() {
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'Em entrega' | 'Finalizada'>(

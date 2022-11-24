@@ -5,9 +5,8 @@ import {
   ScrollView,
   Select, useTheme, VStack
 } from "native-base";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
@@ -47,10 +46,10 @@ export function RegisterUser() {
     }
   }
 
-  const handleNewScreen = useCallback(async () => {
-    await AsyncStorage.setItem('key', selectTypeUser);
-    setUserType(selectTypeUser);
-  }, [selectTypeUser]);
+  // const handleNewScreen = useCallback(async () => {
+  //   await AsyncStorage.setItem('key', selectTypeUser);
+  //   setUserType(selectTypeUser);
+  // }, [selectTypeUser]);
 
   const handleNewAccount = () => {
     if(!email || !password || !name || !citySelected) {
@@ -84,11 +83,11 @@ export function RegisterUser() {
             email,
             createdAt: firestore.FieldValue.serverTimestamp(),
           });
+          navigation.navigate('signIn');
       })
       .catch((error) => console.log(error))
       .finally(() => {
         setIsLoading(false);
-        handleNewScreen();
       });
   }
   

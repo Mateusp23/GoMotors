@@ -66,14 +66,12 @@ export function SignIn() {
                 name,
                 selectTypeUser,
               }
-              console.log('dados da conta:', userData);
-              console.log('tipo usuario:', selectTypeUser);
               setUser(userData);
 
               if (selectTypeUser === 'motoboy') {
-                navigation.navigate('homeMotoboy');
+                navigation.navigate('homeMotoboy', { userData });
               } else if (selectTypeUser === 'restaurant') {
-                navigation.navigate('homeRestaurant');
+                navigation.navigate('homeRestaurant', { userData } );
               } else {
                 return null;
               }

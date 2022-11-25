@@ -9,14 +9,16 @@ import IconMoto from "../assets/icon-moto.svg";
 
 import { Button } from "../components/Button";
 import { HeaderProfile } from "../components/HeaderProfile";
+import { Loading } from '../components/Loading';
 import { OrderListRestaurants } from '../components/OrderListRestaurants';
 
 export function HomeMotoboy({ route }: any) {
+  const [isLoading, setIsLoading] = useState(true);
   const params = route?.params;
-  console.log("id", params?.userData.id);
-  const [statusSelected, setStatusSelected] = useState<"open" | "closed">(
-    "open"
-  );
+  console.log('id: ', params?.userData.id);
+  const [userId, setUserId] = useState('');
+  const [deliveries, setDeliveries] = useState([]);
+  const [statusSelected, setStatusSelected] = useState<"open" | "closed">("open");
   const [ordersListRestaurant, setOrdersListRestaurant] =
     useState([]);
   const navigation = useNavigation();
@@ -24,24 +26,35 @@ export function HomeMotoboy({ route }: any) {
   const handleNewScreen = () => {
     navigation.navigate("editMotoboy", { id: params.userData?.id });
   };
-
+  
   useEffect(() => {
-    const subscribe = firestore()
-      .collection('users')
-      .where('selectTypeUser', '==', 'restaurant')
-      .onSnapshot(querySnapshot => {
-        const data = querySnapshot.docs.map((doc) => {
+    setIsLoading(true);
+    setUserId(params?.userData.id);
+
+    const subscriber = firestore()
+      .collection('deliveries')
+      //.where('orderIdMotoboy', '==', userId)
+      .onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => {
+          const { road, district, isCitySelected, typeDelivery, value, created_at } = doc.data();
+
           return {
-            id: doc.id,
-            ...doc.data()
+            road,
+            district,
+            isCitySelected,
+            typeDelivery,
+            value,
+            created_at
           }
         });
-
-        setOrdersListRestaurant(data);
+        
+        setDeliveries(data);
+        setIsLoading(false);
       });
 
-    return () => subscribe();
-  }, []);
+    return subscriber;
+  }, [userId]);
+  console.log('entregas: ', deliveries);
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -65,43 +78,30 @@ export function HomeMotoboy({ route }: any) {
           <Text color="gray.200">2</Text>
         </HStack>
 
-        {/* <HStack space={3} mb={8}>
-          <Filter
-            type="open"
-            title="Em andamento"
-            onPress={() => setStatusSelected("open")}
-            isActive={statusSelected === "open"}
+        {isLoading ? <Loading /> : 
+          <FlatList
+            data={ordersListRestaurant}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+              <OrderListRestaurants
+                data={item}
+                onPress={() => { }}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 100 }}
+            ListEmptyComponent={() => (
+              <Center>
+                <Icon as={<IconMoto />} mt={4} />
+                <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+                  Você ainda não possui {"\n"}
+                  entregas{" "}
+                  {statusSelected === "open" ? "em andamento" : "finalizadas"}
+                </Text>
+              </Center>
+            )}
           />
-          <Filter
-            type="finished"
-            title="Finalizados"
-            onPress={() => setStatusSelected("closed")}
-            isActive={statusSelected === "closed"}
-          />
-        </HStack> */}
-
-        <FlatList
-          data={ordersListRestaurant}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <OrderListRestaurants
-              data={item}
-              onPress={() => {}}
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 100 }}
-          ListEmptyComponent={() => (
-            <Center>
-              <Icon as={<IconMoto />} mt={4} />
-              <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                Você ainda não possui {"\n"}
-                entregas{" "}
-                {statusSelected === "open" ? "em andamento" : "finalizadas"}
-              </Text>
-            </Center>
-          )}
-        />
+        }
 
         <Button
           bgColor="primary.700"

@@ -21,6 +21,10 @@ export function HomeMotoboy({ route }: any) {
     useState([]);
   const navigation = useNavigation();
 
+  const handleNewScreen = () => {
+    navigation.navigate("editMotoboy", { id: params.userData?.id });
+  };
+
   useEffect(() => {
     const subscribe = firestore()
       .collection('users')
@@ -37,11 +41,7 @@ export function HomeMotoboy({ route }: any) {
       });
 
     return () => subscribe();
-  }, [])
-
-  const handleNewScreen = () => {
-    navigation.navigate("editMotoboy", { id: params.userData?.id });
-  };
+  }, []);
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -93,7 +93,7 @@ export function HomeMotoboy({ route }: any) {
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (
             <Center>
-              <Icon as={<IconMoto size={32} />} />
+              <Icon as={<IconMoto />} mt={4} />
               <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
                 Você ainda não possui {"\n"}
                 entregas{" "}

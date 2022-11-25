@@ -32,10 +32,29 @@ export function EditRestaurant({ route }: any) {
   const [description, setDescription] = useState("");
   const navigation = useNavigation();
 
-  async function handleSendData() {
+  function handleEditRestaurant() {
     if (!road || !district || !complement || !description) {
       return Alert.alert("Editar", "Preencha os campos.");
     }
+
+    firestore()
+      .collection('users')
+      .doc(userId)
+      .update({
+        road,
+        district,
+        complement,
+        description
+      })
+      .then(() => {
+        Alert.alert('Editar', 'Informaçōes alteradas com sucesso.');
+        navigation.goBack();
+      })
+      .catch((error) => {
+        Alert.alert('Editar', 'Erro ao editar informaçōes.');
+        console.log(error);
+      });
+
   }
 
   useEffect(() => {
@@ -109,7 +128,7 @@ export function EditRestaurant({ route }: any) {
         title="Confirmar"
         mt={4}
         mb={4}
-        onPress={handleSendData}
+        onPress={handleEditRestaurant}
       />
     </VStack>
   );

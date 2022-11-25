@@ -59,7 +59,7 @@ export function HomeRestaurant({ route }: any) {
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HeaderProfile
-        title={params.userData?.name}
+        title={`Olá, ${params.userData?.name}`}
         userType="restaurante"
       />
 

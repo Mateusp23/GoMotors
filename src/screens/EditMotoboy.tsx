@@ -1,9 +1,12 @@
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 import { VStack } from "native-base";
 import React, { useEffect, useState } from "react";
+import { Alert } from 'react-native';
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
+import { Loading } from '../components/Loading';
 
 type Details = {
   deliveries: string;
@@ -26,6 +29,27 @@ export function EditMotoboy({ route }: any) {
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
   const [experience, setExperience] = useState('');
+  const navigation = useNavigation();
+
+  function handleEditMotoboy() {
+    firestore()
+      .collection('users')
+      .doc(userId)
+      .update({
+        deliveries,
+        phone,
+        pix,
+        experience
+      })
+      .then(() => {
+        Alert.alert('Editar', 'Informaçōes alteradas com sucesso.');
+        navigation.goBack();
+      })
+      .catch((error) => {
+        Alert.alert('Editar', 'Erro ao editar informaçōes.');
+        console.log(error);
+      });
+  }
 
   useEffect(() => { 
     setUserId(params?.id);
@@ -51,10 +75,12 @@ export function EditMotoboy({ route }: any) {
         });
         setIsLoading(false);
       });
-    
   }, [userId]);
 
-  console.log('detalhes', details);
+  if (isLoading) {
+    return <Loading />;
+  }
+  
   return (
     <VStack flex={1} p={5} bg="gray.600">
       <Header isBackScreen title="Editar Perfil - Motoboy" />
@@ -100,7 +126,7 @@ export function EditMotoboy({ route }: any) {
         title="Confirmar"
         mt={4}
         mb={4}
-        onPress={() => {}}
+        onPress={handleEditMotoboy}
       />
     </VStack>
   );

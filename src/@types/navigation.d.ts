@@ -21,7 +21,13 @@ export declare global {
           }
         }
       };
-      editRestaurant: undefined;
+      editRestaurant: {
+        id: {
+          userData: {
+            id: string,
+          }
+        }
+      };
       loading: undefined;
       motoboyDetails: { orderIdMotoboy: string };
     }

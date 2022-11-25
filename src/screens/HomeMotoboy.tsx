@@ -46,9 +46,8 @@ export function HomeMotoboy({ route }: any) {
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HeaderProfile
-        url="https://avatars.githubusercontent.com/u/61236430?v=4"
-        title="Mateus"
-        userType="motoboy"
+        title={`Olá, ${params?.userData.name}`}
+        userType={params?.userData.selectTypeUser}
       />
 
       <VStack flex={1} px={6}>

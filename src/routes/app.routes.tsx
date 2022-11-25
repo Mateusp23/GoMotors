@@ -7,8 +7,6 @@ import { HomeMotoboy } from "../screens/HomeMotoboy";
 import { HomeRestaurant } from "../screens/HomeRestaurant";
 import { Loading } from "../screens/Loading";
 import { MotoboyDetails } from "../screens/MotoboyDetails";
-import { RegisterUser } from "../screens/RegisterUser";
-import { SignIn } from "../screens/SingIn";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -16,8 +14,6 @@ export function AppRoutes() {
   return (
     <>
       <Navigator screenOptions={{ headerShown: false }}>
-        <Screen name="signIn" component={SignIn} />
-        <Screen name="registerUser" component={RegisterUser} />
         <Screen name="homeMotoboy" component={HomeMotoboy} />
         <Screen name="editMotoboy" component={EditMotoboy} />
         <Screen name="homeRestaurant" component={HomeRestaurant} />

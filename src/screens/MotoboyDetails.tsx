@@ -71,7 +71,7 @@ export function MotoboyDetails() {
         );
       });
   }
-
+  
   useEffect(() => { 
     setIsLoading(true);
 

@@ -1,7 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { VStack } from "native-base";
 import React, { useEffect, useState } from "react";
+
+import { VStack } from "native-base";
 import { Alert } from 'react-native';
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";

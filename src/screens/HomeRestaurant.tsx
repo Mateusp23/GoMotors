@@ -15,7 +15,9 @@ import {
   OrderMotoboyListProps
 } from "../components/OrderListMotoboys";
 
-export function HomeRestaurant() {
+export function HomeRestaurant({ route }: any) {
+  const params = route?.params;
+  console.log("id", params?.userData.id);
   const [isLoading, setIsLoading] = useState(true);
   const [statusSelected, setStatusSelected] = useState<'Em entrega' | 'Finalizada'>(
     'Em entrega'
@@ -26,7 +28,7 @@ export function HomeRestaurant() {
   const navigation = useNavigation();
 
   const handleNewScreen = () => {
-    navigation.navigate("editRestaurant");
+    navigation.navigate("editRestaurant", { id: params.userData?.id });
   };
 
   function handleOpenMotoboyDetails(orderIdMotoboy: string) {
@@ -57,8 +59,7 @@ export function HomeRestaurant() {
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HeaderProfile
-        url="https://avatars.githubusercontent.com/u/61236430?v=4"
-        title=""
+        title={params.userData?.name}
         userType="restaurante"
       />
 

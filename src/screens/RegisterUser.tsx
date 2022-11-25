@@ -268,7 +268,7 @@ export function RegisterUser() {
           onValueChange={(itemValue) => setSelectTypeUser(itemValue)}
         >
           <Select.Item shadow={1} label="Motoboy" value="motoboy" />
-          <Select.Item shadow={1} label="Restaurant" value="restaurant" />
+          <Select.Item shadow={1} label="Restaurante" value="restaurant" />
         </Select>
 
         {RenderForms()}          

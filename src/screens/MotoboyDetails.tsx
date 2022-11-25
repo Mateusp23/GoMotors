@@ -48,7 +48,8 @@ export function MotoboyDetails() {
 
     firestore()
       .collection('deliveries')
-      .add({
+      .doc(orderIdMotoboy)
+      .set({
         road,
         district,
         complement,

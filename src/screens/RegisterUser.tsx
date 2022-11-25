@@ -11,10 +11,8 @@ import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
-import { useAuth } from "../context/auth";
 
 export function RegisterUser() {
-  const { setUserType } = useAuth();
   const [deliveries, setDeliveries] = useState('');
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
@@ -45,11 +43,6 @@ export function RegisterUser() {
       setIsButtonSelected(true);
     }
   }
-
-  // const handleNewScreen = useCallback(async () => {
-  //   await AsyncStorage.setItem('key', selectTypeUser);
-  //   setUserType(selectTypeUser);
-  // }, [selectTypeUser]);
 
   const handleNewAccount = () => {
     if(!email || !password || !name || !citySelected) {

@@ -29,7 +29,7 @@ export declare global {
         }
       };
       loading: undefined;
-      motoboyDetails: { orderIdMotoboy: string };
+      motoboyDetails: { orderIdMotoboy: string, id: string };
     }
   }
 }

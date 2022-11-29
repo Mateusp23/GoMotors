@@ -1,5 +1,5 @@
 import {
-  Avatar, Box, HStack, IPressableProps, Pressable, Text,
+  Box, HStack, IPressableProps, Pressable, Text,
   useTheme, VStack
 } from "native-base";
 
@@ -50,17 +50,6 @@ export function OrderListMotoboys({ data, ...rest }: Props) {
             </Text>
           </HStack>
         </VStack>
-
-        <Avatar
-          h={12}
-          w={12}
-          mr={5}
-          bg="gray.600"
-          alignSelf="center"
-          size="md"
-          source={{ uri: data?.picture }}
-          {...rest}
-        />
       </HStack>
     </Pressable>
   );

@@ -10,6 +10,7 @@ import { Header } from "../components/Header";
 
 type RouteParams = {
   orderIdMotoboy: string;
+  id?: string;
 }
 
 type MotoboyInfosListProps = {
@@ -23,6 +24,11 @@ type MotoboyInfosListProps = {
   created_at: FirebaseFirestoreTypes.Timestamp;
 }
 
+type UserRestaurantData = {
+  name: string;
+}
+
+
 // tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
 export function MotoboyDetails() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +38,7 @@ export function MotoboyDetails() {
   const [complement, setComplement] = useState('');
   const [typeDelivery, setTypeDelivery] = useState('');
   const [value, setValue] = useState('');
+  const [restaurantData, setRestaurantData] = useState<UserRestaurantData | null>(null);
   const { colors } = useTheme();
   const navigation = useNavigation();
   
@@ -39,6 +46,24 @@ export function MotoboyDetails() {
     useState<MotoboyInfosListProps>({} as MotoboyInfosListProps);
   const route = useRoute();
   const { orderIdMotoboy } = route.params as RouteParams;
+  const params = route?.params as RouteParams;
+  console.log("id", params?.id); 
+
+  function handleGetDataRestaurant() {
+    firestore()
+      .collection('users')
+      .doc(params?.id)
+      .get()
+      .then(profile => {
+        const { name } = profile.data() as UserRestaurantData;
+
+        const restaurantUser = {
+          name,
+        }
+        setRestaurantData(restaurantUser);
+        console.log('name:', restaurantData)
+      });
+  }
 
   function handleNewDelivery() {
     if (!road || !district || !complement || !typeDelivery || !value) {
@@ -57,6 +82,7 @@ export function MotoboyDetails() {
         value,
         isCitySelected,
         orderIdMotoboy,
+        restaurantData,
         created_at: firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
@@ -73,6 +99,10 @@ export function MotoboyDetails() {
       });
   }
   
+  useEffect(() => {
+    handleGetDataRestaurant();
+  }, []);
+
   useEffect(() => { 
     setIsLoading(true);
 

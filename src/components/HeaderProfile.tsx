@@ -53,7 +53,7 @@ export function HeaderProfile({
     >
       <HStack justifyContent="center" alignItems="center">
         <VStack>
-          <Text ml={4} fontSize="md" color={colors.gray[100]} >
+          <Text ml={4} fontSize="md" bold color="white" >
             {title}
           </Text>
           <Text ml={4} textTransform="uppercase" fontSize="md" color={colors.gray[300]} >

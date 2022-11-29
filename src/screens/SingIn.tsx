@@ -22,7 +22,6 @@ type User = {
 }
 
 export function SignIn() {
-  // const { userType, setUserType } = useAuth();
   const [user, setUser] = useState<User | null>(null);
   const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(false);

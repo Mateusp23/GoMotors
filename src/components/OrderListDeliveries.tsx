@@ -63,9 +63,10 @@ export function OrderListDeliveries({
           </Text>
 
           <Button
+            mt={2}
             title='Aceitar entrega'
-            bgColor="gray.700"
-            color="primary.700"
+            bgColor="primary.700"
+            color="white"
             width={72}
             bg="gray.700"
             onPress={closeDeliveries}

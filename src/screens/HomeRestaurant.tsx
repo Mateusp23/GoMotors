@@ -31,8 +31,8 @@ export function HomeRestaurant({ route }: any) {
     navigation.navigate("editRestaurant", { id: params.userData?.id });
   };
 
-  function handleOpenMotoboyDetails(orderIdMotoboy: string) {
-    navigation.navigate('motoboyDetails', { orderIdMotoboy });
+  function handleOpenMotoboyDetails(orderIdMotoboy: string, id: string) {
+    navigation.navigate('motoboyDetails', { orderIdMotoboy, id: params?.userData.id });
   }
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export function HomeRestaurant({ route }: any) {
             renderItem={({ item }) => (
               <OrderListMotoboys
                 data={item}
-                onPress={() => handleOpenMotoboyDetails(item.id)}
+                onPress={() => handleOpenMotoboyDetails(item.id, params.userData?.id)}
               />
             )}
             showsVerticalScrollIndicator={false}

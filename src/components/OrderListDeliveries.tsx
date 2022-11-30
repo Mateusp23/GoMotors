@@ -1,6 +1,5 @@
 import {
-  HStack, Text,
-  useTheme, VStack
+  HStack, Text, VStack
 } from "native-base";
 import { Button } from "./Button";
 
@@ -25,8 +24,7 @@ export function OrderListDeliveries({
   value,
   closeDeliveries
 }: Props) {
-  const { colors } = useTheme();
-
+  
   return (
     <VStack>
       <HStack

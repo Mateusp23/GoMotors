@@ -74,6 +74,7 @@ export function RegisterUser() {
             email,
             createdAt: firestore.FieldValue.serverTimestamp(),
           });
+        navigation.navigate('signIn');
       })
       .catch((error) => console.log(error))
       .finally(() => {

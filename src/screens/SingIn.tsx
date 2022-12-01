@@ -7,7 +7,6 @@ import {
 } from "native-base";
 import { Envelope, Key } from "phosphor-react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import { Alert } from "react-native";
 
@@ -21,11 +20,8 @@ type User = {
   selectTypeUser: "motoboy" | "restaurant";
 }
 
-const DELIVERIES_COLLECTION = '@gomotors:deliveries';
-
 export function SignIn() {
   const [user, setUser] = useState<User | null>(null);
-  const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,8 +55,7 @@ export function SignIn() {
                 selectTypeUser,
               }
               setUser(userData);
-              await AsyncStorage.setItem(DELIVERIES_COLLECTION, JSON.stringify(userData));
-
+          
               if (selectTypeUser === 'motoboy') {
                 navigation.navigate('homeMotoboy', { userData });
               } else if (selectTypeUser === 'restaurant') {

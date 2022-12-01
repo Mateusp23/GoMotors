@@ -24,8 +24,6 @@ export function RegisterUser() {
   const [complement, setComplement] = useState("");
   const [description, setDescription] = useState("");
 
-  const [image, setImage] = useState("");
-
   const [citySelected, setCitySelected] = useState("");
   const [selectTypeUser, setSelectTypeUser] = useState("");
   const [isButtonSelected, setIsButtonSelected] = useState(false);
@@ -76,7 +74,6 @@ export function RegisterUser() {
             email,
             createdAt: firestore.FieldValue.serverTimestamp(),
           });
-          navigation.navigate('signIn');
       })
       .catch((error) => console.log(error))
       .finally(() => {
@@ -112,20 +109,6 @@ export function RegisterUser() {
           <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
           <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
         </Select>
-        {/* <ButtonInfo 
-          bg="gray.700"
-          h={14}
-          fontSize="sm"
-          rounded="sm"
-          _pressed={{ bg: "gray.400" }}
-          leftIcon={<CloudArrowUp color={colors.primary[700]} size={32} />}
-          mb={3}
-          onPress={() => {}}
-        >
-          <Heading color="primary.700" fontSize="md">
-            Upload da sua imagem
-          </Heading>
-        </ButtonInfo> */}
         <Input
           mb={4}
           placeholder="E-mail"

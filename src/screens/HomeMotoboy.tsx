@@ -1,9 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   Center, HStack, Icon, Text, VStack
 } from "native-base";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert } from 'react-native';
 
 import IconMoto from "../assets/icon-moto.svg";
@@ -19,23 +19,24 @@ type Deliveries = {
   district: string;
   isCitySelected: string;
   typeDelivery: string;
+  complement: string;
   nameRestaurant: string;
   value: string;
   date: string;
 };
 
+const DELIVERIES_COLLECTION = '@gomotors:deliveries';
+
 export function HomeMotoboy({ route }: any) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const params = route?.params;
-  console.log('id: ', params?.userData.id);
-  const [userId, setUserId] = useState('');
+  console.log('id params***: ', params?.userData.id);
   const [deliveries, setDeliveries] = useState<Deliveries>({} as Deliveries);
-  const [isDeliveries, setIsDeliveries] = useState(true);
-  const isFocused = useIsFocused();
+  const [isDeliveries, setIsDeliveries] = useState(false);
   const navigation = useNavigation();
 
   const handleCloseDeliveries = () => {
-    Alert.alert('Teste', 'cliquei');
+    Alert.alert('Entrega', 'Entrega aceita com sucesso');
     setIsDeliveries(false);
   }
 
@@ -43,79 +44,63 @@ export function HomeMotoboy({ route }: any) {
     navigation.navigate("editMotoboy", { id: params.userData?.id });
   };
   
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   setUserId(params?.userData.id);
+  //   const storage = await AsyncStorage.getItem(DELIVERIES_COLLECTION);
+  //   if (storage) {
+  //     const userData = JSON.parse(storage);
+  //     console.log('teste storage', userData)
+  //     setUserId(userData);
+  //   }
 
-  //   const subscriber = firestore()
-  //     .collection('deliveries')
-  //     //.where('orderIdMotoboy', '==', userId)
-  //     .onSnapshot((snapshot) => {
-  //       const data = snapshot.docs.map((doc) => {
-  //         const { road, district, isCitySelected, typeDelivery, value, restaurantData, created_at } = doc.data();
+  //   setIsLoading(false);
+  // }
 
-  //         return {
-  //           road,
-  //           district,
-  //           isCitySelected,
-  //           typeDelivery,
-  //           value,
-  //           nameRestaurant: restaurantData,
-  //           created_at
-  //         }
-  //       });
-        
-  //       setDeliveries(data);
-  //       setIsLoading(false);
-  //     });
+  const handleShowDeliveries = () => {
+    setIsLoading(true);
 
-  //   return subscriber;
-  // }, [userId]);
+    firestore()
+      .collection('deliveries')
+      .doc(params?.userData.id)
+      .get()
+      .then((doc) => {
+        const {
+          road,
+          district,
+          complement,
+          isCitySelected,
+          typeDelivery,
+          restaurantData,
+          value,
+          created_at
+        } = doc.data();
 
-  useEffect(() => {
-    setUserId(params?.userData.id);
-  }, [userId]);
-
-  useEffect(() => {
-    if (isFocused) {
-      setIsLoading(true);
-
-      firestore()
-        .collection('deliveries')
-        .doc(userId)
-        .get()
-        .then((doc) => {
-          const {
-            road,
-            district,
-            isCitySelected,
-            typeDelivery,
-            restaurantData,
-            value,
-            created_at
-          } = doc.data();
-
-          setDeliveries({
-            road,
-            district,
-            isCitySelected,
-            nameRestaurant: restaurantData,
-            typeDelivery,
-            value,
-            date: dateFormat(created_at),
-          });
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setIsLoading(false);
+        setDeliveries({
+          road,
+          district,
+          complement,
+          isCitySelected,
+          nameRestaurant: restaurantData,
+          typeDelivery,
+          value,
+          date: dateFormat(created_at),
         });
-    }
-  }, [isFocused]);
-  
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+        return Alert.alert(
+          'Entrega',
+          'Você ainda não possui entregas.'
+        );
+      });    
+      console.log(deliveries)
+      // if (!deliveries) {
+      //   setIsDeliveries(true);
+      // } 
+    setIsDeliveries(true);
+    setIsLoading(false);
+  }
+
   console.log('entregas: ', deliveries);
-  console.log('userId: ', userId);
-  // console.log(deliveries.nameRestaurant.name);
 
   if (isLoading) {
     return <Loading />;
@@ -141,17 +126,26 @@ export function HomeMotoboy({ route }: any) {
           {isDeliveries && <Text fontSize="lg" mb={2} color='white'>1</Text>}
         </HStack>
 
-        {isDeliveries && <Text fontSize="lg" mb={2} color='white'>Dados da entrega</Text>}
+        <Button
+          mt={2}
+          mb={2}
+          title='Ver entrega'
+          bgColor="primary.700"
+          color="white"
+          bg="gray.700"
+          isLoading={isLoading}
+          onPress={handleShowDeliveries}
+        />
+
         {isDeliveries ?
           <OrderListDeliveries
-            //restaurantData={deliveries.nameRestaurant.name}
-            restaurantData='napole'
-            road='av general oso testando line quebrada etc teste um dois tres'
-            district='centro'
-            complement='sala 03'
-            isCitySelected='Torres'
-            typeDeliveries='pizza'
-            value={`R$ ${deliveries.value}`}
+            restaurantData={deliveries?.nameRestaurant?.name}
+            road={deliveries?.road}
+            district={deliveries?.district}
+            complement={deliveries?.complement}
+            isCitySelected={deliveries?.isCitySelected}
+            typeDeliveries={deliveries?.typeDelivery}
+            value={`R$ ${deliveries?.value}`}
             closeDeliveries={handleCloseDeliveries}
           />
           : 
@@ -159,8 +153,8 @@ export function HomeMotoboy({ route }: any) {
             <Center>
               <Icon as={<IconMoto />} mt={4} />
               <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
-                Você ainda não possui {"\n"}
-                solicitaçōes de entrega
+                Ser motoqueiro é muito mais {"\n"}
+                do que ter uma moto!
               </Text>
             </Center>
           </VStack>

@@ -8,7 +8,7 @@ import {
 import { Envelope, Key } from "phosphor-react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert } from "react-native";
 
 import Logo from "../assets/logo_little.svg";
@@ -20,6 +20,8 @@ type User = {
   name: string;
   selectTypeUser: "motoboy" | "restaurant";
 }
+
+const DELIVERIES_COLLECTION = '@gomotors:deliveries';
 
 export function SignIn() {
   const [user, setUser] = useState<User | null>(null);
@@ -33,15 +35,6 @@ export function SignIn() {
   function handleRegisterUser() {
     navigation.navigate("registerUser");
   }
-  
-  const getTypeUser = useCallback(async () => {
-    const userTypeStorage = await AsyncStorage.getItem('key');
-    setUserType(userTypeStorage);
-  }, [userType]);
-
-  useEffect(() => {
-    getTypeUser();
-  }, []);
 
   function handleSignIn() {
     if (!email || !password) {
@@ -56,7 +49,7 @@ export function SignIn() {
           .collection('users')
           .doc(account.user.uid)
           .get()
-          .then(profile => {
+          .then(async (profile) => {
             const { name, selectTypeUser } = profile.data() as User;
 
             if (profile.exists) {
@@ -66,13 +59,14 @@ export function SignIn() {
                 selectTypeUser,
               }
               setUser(userData);
+              await AsyncStorage.setItem(DELIVERIES_COLLECTION, JSON.stringify(userData));
 
               if (selectTypeUser === 'motoboy') {
                 navigation.navigate('homeMotoboy', { userData });
               } else if (selectTypeUser === 'restaurant') {
                 navigation.navigate('homeRestaurant', { userData } );
               } else {
-                return null;
+                navigation.navigate('registerUser');
               }
             }
           })

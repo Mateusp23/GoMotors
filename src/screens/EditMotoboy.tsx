@@ -2,7 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from "react";
 
-import { VStack } from "native-base";
+import { Select, useTheme, VStack } from "native-base";
 import { Alert } from 'react-native';
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
@@ -13,6 +13,7 @@ type Details = {
   deliveries: string;
   phone: string;
   pix: string;
+  status: "Disponivel" | "Em entrega";
   experience: string;
 };
 
@@ -25,12 +26,14 @@ export function EditMotoboy({ route }: any) {
   const [details, setDetails] = useState<Details>({} as Details);
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState('');
-  
+  const [status, setStatus] = useState(details?.status);
+
   const [deliveries, setDeliveries] = useState('');
   const [phone, setPhone] = useState('');
   const [pix, setPix] = useState('');
   const [experience, setExperience] = useState('');
   const navigation = useNavigation();
+  const { colors } = useTheme();
 
   function handleEditMotoboy() {
     firestore()
@@ -39,6 +42,7 @@ export function EditMotoboy({ route }: any) {
       .update({
         deliveries,
         phone,
+        status,
         pix,
         experience
       })
@@ -65,18 +69,21 @@ export function EditMotoboy({ route }: any) {
           deliveries,
           phone,
           pix,
+          status,
           experience,
         } = doc.data();
 
         setDetails({
           deliveries,
           phone,
+          status,
           pix,
           experience,
         });
         setIsLoading(false);
       });
   }, [userId]);
+  console.log('details with status:', details.status)
 
   if (isLoading) {
     return <Loading />;
@@ -93,6 +100,7 @@ export function EditMotoboy({ route }: any) {
         defaultValue={details?.deliveries}
         onChangeText={setDeliveries}
       />
+      
       <Input
         keyboardType="numeric"
         placeholder="Telefone"
@@ -109,6 +117,27 @@ export function EditMotoboy({ route }: any) {
         onChangeText={setPix}
         defaultValue={details?.pix}
       />
+
+      <Select
+        selectedValue={status}
+        defaultValue={details?.status}
+        minWidth="200"
+        accessibilityLabel="Selecione seu status"
+        placeholder="Altere seu status"
+        _selectedItem={{
+          color: "primary.700",
+        }}
+        _item={colors.primary}
+        placeholderTextColor={colors.primary[700]}
+        color={colors.primary[700]}
+        fontSize="md"
+        mt={3}
+        mb={3}
+        onValueChange={(itemValue) => setStatus(itemValue)}
+      >
+        <Select.Item shadow={1} label="Disponível" value="Disponível" />
+        <Select.Item shadow={1} label="Em entrega" value="Em entrega" />
+      </Select>
 
       <Input
         placeholder="Conte um pouco de sua experiência"

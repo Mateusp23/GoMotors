@@ -25,35 +25,45 @@ type Deliveries = {
   date: string;
 };
 
-const DELIVERIES_COLLECTION = '@gomotors:deliveries';
-
 export function HomeMotoboy({ route }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const params = route?.params;
   console.log('id params***: ', params?.userData.id);
+  console.log('status: ', params?.userData.status);
   const [deliveries, setDeliveries] = useState<Deliveries>({} as Deliveries);
   const [isDeliveries, setIsDeliveries] = useState(false);
   const navigation = useNavigation();
 
   const handleCloseDeliveries = () => {
-    Alert.alert('Entrega', 'Entrega aceita com sucesso');
+    if (deliveries) {
+      Alert.alert('Entrega', 'Entrega aceita com sucesso');
+    } 
     setIsDeliveries(false);
+    // limpar objeto setDeliveries()
+  }
+
+  const handleFinishDeliveries = () => {
+    Alert.alert("Entrega", "Tem certeza que deseja recusar a entrega?", [
+      {
+        text: "Cancelar",
+        onPress: () => {
+          return;
+        },
+      },
+      {
+        text: "Recusar",
+        onPress: () => {
+          console.log('recusou');
+          setIsDeliveries(false);
+        },
+      },
+    ]);
   }
 
   const handleNewScreen = () => {
     navigation.navigate("editMotoboy", { id: params.userData?.id });
   };
   
-  //   const storage = await AsyncStorage.getItem(DELIVERIES_COLLECTION);
-  //   if (storage) {
-  //     const userData = JSON.parse(storage);
-  //     console.log('teste storage', userData)
-  //     setUserId(userData);
-  //   }
-
-  //   setIsLoading(false);
-  // }
-
   const handleShowDeliveries = () => {
     setIsLoading(true);
 
@@ -89,7 +99,7 @@ export function HomeMotoboy({ route }: any) {
         console.log(error);
         return Alert.alert(
           'Entrega',
-          'Você ainda não possui entregas.'
+          'Você ainda não possui entregas. Aguarde para receber uma!!'
         );
       });    
       console.log(deliveries)
@@ -100,7 +110,35 @@ export function HomeMotoboy({ route }: any) {
     setIsLoading(false);
   }
 
-  console.log('entregas: ', deliveries);
+  const handleIsDeliveries = () => {
+    if (deliveries) {
+      return <OrderListDeliveries
+        restaurantData={deliveries?.nameRestaurant?.name}
+        road={deliveries?.road}
+        district={deliveries?.district}
+        complement={deliveries?.complement}
+        isCitySelected={deliveries?.isCitySelected}
+        typeDeliveries={deliveries?.typeDelivery}
+        value={`R$ ${deliveries?.value}`}
+        closeDeliveries={handleCloseDeliveries}
+        closeDeliveriesFinish={handleFinishDeliveries}
+        titleBtnFinish="Fechar"
+        titleBtn="Aceitar entrega"
+      />
+    } else {
+      return <OrderListDeliveries
+        restaurantData="Nome do restaurante: -"
+        road="-"
+        district="-"
+        complement="-"
+        isCitySelected="-"
+        typeDeliveries="-"
+        value="R$ -"
+        closeDeliveries={handleCloseDeliveries}
+        titleBtn="Fechar"
+      />
+    }
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -123,7 +161,7 @@ export function HomeMotoboy({ route }: any) {
         >
           <Text fontSize="lg" mb={2} color='white'>Solicitaçōes de entrega</Text>
           
-          {isDeliveries && <Text fontSize="lg" mb={2} color='white'>1</Text>}
+          {isDeliveries && <Text fontSize="lg" mb={2} color='white'>{ deliveries ? "1" : "0"}</Text>}
         </HStack>
 
         <Button
@@ -138,16 +176,8 @@ export function HomeMotoboy({ route }: any) {
         />
 
         {isDeliveries ?
-          <OrderListDeliveries
-            restaurantData={deliveries?.nameRestaurant?.name}
-            road={deliveries?.road}
-            district={deliveries?.district}
-            complement={deliveries?.complement}
-            isCitySelected={deliveries?.isCitySelected}
-            typeDeliveries={deliveries?.typeDelivery}
-            value={`R$ ${deliveries?.value}`}
-            closeDeliveries={handleCloseDeliveries}
-          />
+          // todo se tiver deliverie mostrar orderList com dados do firebase se nao tiver deliveries mostrar dados vazios
+          handleIsDeliveries()
           : 
           <VStack space={4} alignItems="center">  
             <Center>

@@ -17,6 +17,7 @@ import { Input } from "../components/Forms/Input";
 type User = {
   id: string;
   name: string;
+  status: "Disponivel" | "Em entrega"
   selectTypeUser: "motoboy" | "restaurant";
 }
 
@@ -46,14 +47,16 @@ export function SignIn() {
           .doc(account.user.uid)
           .get()
           .then(async (profile) => {
-            const { name, selectTypeUser } = profile.data() as User;
+            const { status, name, selectTypeUser } = profile.data() as User;
 
             if (profile.exists) {
               const userData = {
                 id: account.user.uid,
                 name,
                 selectTypeUser,
+                status
               }
+              console.log(status)
               setUser(userData);
           
               if (selectTypeUser === 'motoboy') {

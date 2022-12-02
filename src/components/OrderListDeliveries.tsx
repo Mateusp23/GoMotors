@@ -11,7 +11,10 @@ type Props = {
   restaurantData: string;
   typeDeliveries: string;
   value: string;
+  titleBtn: string;
+  titleBtnFinish?: string;
   closeDeliveries: () => void;
+  closeDeliveriesFinish?: () => void;
 }
 
 export function OrderListDeliveries({
@@ -22,7 +25,10 @@ export function OrderListDeliveries({
   restaurantData,
   typeDeliveries,
   value,
-  closeDeliveries
+  closeDeliveries,
+  titleBtn,
+  closeDeliveriesFinish,
+  titleBtnFinish
 }: Props) {
   
   return (
@@ -62,12 +68,21 @@ export function OrderListDeliveries({
 
           <Button
             mt={2}
-            title='Aceitar entrega'
+            title={titleBtn}
             bgColor="gray.600"
             color="primary.700"
             width={72}
             bg="gray.700"
             onPress={closeDeliveries}
+          />
+          <Button
+            mt={2}
+            title={titleBtnFinish}
+            bgColor="gray.600"
+            color="primary.700"
+            width={72}
+            bg="gray.700"
+            onPress={closeDeliveriesFinish}
           />
         </VStack>
       </HStack>

@@ -102,9 +102,10 @@ export function RegisterUser() {
           onValueChange={(itemValue) => setCitySelected(itemValue)}
         >
           <Select.Item shadow={1} label="Torres - RS" value="torres" />
+          <Select.Item shadow={1} label="Sombrio - SC" value="sombrio" />
           <Select.Item
             shadow={1}
-            label="Passo de Torres - RS"
+            label="Passo de Torres - SC"
             value="passo"
           />
           <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />

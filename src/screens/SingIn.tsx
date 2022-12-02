@@ -39,6 +39,7 @@ export function SignIn() {
     }
 
     setIsLoading(true);
+
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(account => {
@@ -56,21 +57,21 @@ export function SignIn() {
                 selectTypeUser,
                 status
               }
-              console.log(status)
               setUser(userData);
           
               if (selectTypeUser === 'motoboy') {
                 navigation.navigate('homeMotoboy', { userData });
               } else if (selectTypeUser === 'restaurant') {
-                navigation.navigate('homeRestaurant', { userData } );
+                navigation.navigate('homeRestaurant', { userData });
               } else {
                 navigation.navigate('registerUser');
               }
             }
-          })
+          });
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
 
         if (error.code === "auth/invalid-email") {
           return Alert.alert("Entrar", "E-mail inválido.");
@@ -85,8 +86,7 @@ export function SignIn() {
         }
 
         return Alert.alert("Entrar", "Não foi possível acessar");
-      })
-      .finally(() => setIsLoading(false));
+      });
   }
 
   function handleForgotPassword() {

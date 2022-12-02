@@ -32,7 +32,7 @@ type UserRestaurantData = {
 // tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
 export function MotoboyDetails() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isCitySelected, setIsCitySelected] = useState("torres");
+  const [isCitySelected, setIsCitySelected] = useState("");
   const [road, setRoad] = useState('');
   const [district, setDistrict] = useState('');
   const [complement, setComplement] = useState('');
@@ -152,8 +152,8 @@ export function MotoboyDetails() {
         <Select
           selectedValue={isCitySelected}
           minWidth="200"
-          accessibilityLabel="Selecione uma cidade"
-          placeholder="Selecione uma cidade"
+          accessibilityLabel="Selecione a cidade destino"
+          placeholder="Selecione a cidade destino"
           _selectedItem={{
             color: "primary.700",
           }}
@@ -165,7 +165,14 @@ export function MotoboyDetails() {
           defaultValue={isCitySelected}
         >
           <Select.Item shadow={1} label="Torres - RS" value="torres" />
-          <Select.Item shadow={1} label="Passo de Torres - RS" value="passo" />
+          <Select.Item shadow={1} label="Sombrio - SC" value="sombrio" />
+          <Select.Item
+            shadow={1}
+            label="Passo de Torres - SC"
+            value="passo"
+          />
+          <Select.Item shadow={1} label="Três Cachoeiras - RS" value="tc" />
+          <Select.Item shadow={1} label="Capão da Canoa - RS" value="capao" />
         </Select>
 
         <Input onChangeText={setRoad} bg="gray.600" type="text" placeholder="Rua" mt={5}/>

@@ -28,16 +28,14 @@ type UserRestaurantData = {
   name: string;
 }
 
-
-// tela vai ser chamada quando for clicada no motoboy na listagem da home do restaurante
 export function MotoboyDetails() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCitySelected, setIsCitySelected] = useState("");
-  const [road, setRoad] = useState('');
-  const [district, setDistrict] = useState('');
-  const [complement, setComplement] = useState('');
-  const [typeDelivery, setTypeDelivery] = useState('');
-  const [value, setValue] = useState('');
+  const [road, setRoad] = useState("");
+  const [district, setDistrict] = useState("");
+  const [complement, setComplement] = useState("");
+  const [typeDelivery, setTypeDelivery] = useState("");
+  const [value, setValue] = useState("");
   const [restaurantData, setRestaurantData] = useState<UserRestaurantData | null>(null);
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -47,7 +45,6 @@ export function MotoboyDetails() {
   const route = useRoute();
   const { orderIdMotoboy } = route.params as RouteParams;
   const params = route?.params as RouteParams;
-  console.log("id", params?.id); 
 
   function handleGetDataRestaurant() {
     firestore()
@@ -61,12 +58,11 @@ export function MotoboyDetails() {
           name,
         }
         setRestaurantData(restaurantUser);
-        console.log('name:', restaurantData)
       });
   }
 
   function handleNewDelivery() {
-    if (!road || !district || !complement || !typeDelivery || !value) {
+    if (!road || !district || !complement || !typeDelivery || !value || !isCitySelected) {
       return Alert.alert("Envio da entrega", "Preencha todos os campos.");
     }
     setIsLoading(true);

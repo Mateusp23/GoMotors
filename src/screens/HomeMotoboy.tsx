@@ -28,22 +28,32 @@ type Deliveries = {
 export function HomeMotoboy({ route }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const params = route?.params;
-  console.log('id params***: ', params?.userData.id);
-  console.log('status: ', params?.userData.status);
-  const [deliveries, setDeliveries] = useState<Deliveries>({} as Deliveries);
+  const [status, setStatus] = useState('Em entrega');
+  const [deliveries, setDeliveries] = useState<Deliveries | null>({} as Deliveries);
   const [isDeliveries, setIsDeliveries] = useState(false);
   const navigation = useNavigation();
 
-  const handleCloseDeliveries = () => {
-    if (deliveries) {
-      Alert.alert('Entrega', 'Entrega aceita com sucesso');
-    } 
-    setIsDeliveries(false);
-    // limpar objeto setDeliveries()
+  const handleAcceptDeliveries = () => {
+    setIsLoading(true);
+
+    firestore()
+      .collection('users')
+      .doc(params?.userData.id)
+      .update({ status })
+      .then(() => {
+        Alert.alert('Status', 'Sucesso, entrega aceita e seu status foi alterado para Em entrega.');
+        setIsDeliveries(false);
+        setIsLoading(false);
+        setDeliveries(null);
+      })
+      .catch((error) => {
+        Alert.alert('Status', 'Erro ao aceitar entrega.');
+        console.log(error);
+      });
   }
 
   const handleFinishDeliveries = () => {
-    Alert.alert("Entrega", "Tem certeza que deseja recusar a entrega?", [
+    Alert.alert("Entrega", "Tem certeza que deseja recusar a entrega? Essa ação não poderá ser revertida.", [
       {
         text: "Cancelar",
         onPress: () => {
@@ -53,8 +63,17 @@ export function HomeMotoboy({ route }: any) {
       {
         text: "Recusar",
         onPress: () => {
-          console.log('recusou');
-          setIsDeliveries(false);
+          firestore()
+            .collection('deliveries')
+            .doc(params?.userData.id)
+            .delete()
+            .then(() => {
+              Alert.alert("Entrega","Entrega recusada, ela não estará mais disponivel para você");
+              setIsDeliveries(false);
+              setDeliveries(null);
+            }).catch((error) => {
+              console.error("Error removing document: ", error);
+            });
         },
       },
     ]);
@@ -93,6 +112,8 @@ export function HomeMotoboy({ route }: any) {
           value,
           date: dateFormat(created_at),
         });
+        setIsDeliveries(true);
+        setIsLoading(false);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -102,12 +123,8 @@ export function HomeMotoboy({ route }: any) {
           'Você ainda não possui entregas. Aguarde para receber uma!!'
         );
       });    
-      console.log(deliveries)
-      // if (!deliveries) {
-      //   setIsDeliveries(true);
-      // } 
-    setIsDeliveries(true);
-    setIsLoading(false);
+    console.log(deliveries);
+    
   }
 
   const handleIsDeliveries = () => {
@@ -120,23 +137,23 @@ export function HomeMotoboy({ route }: any) {
         isCitySelected={deliveries?.isCitySelected}
         typeDeliveries={deliveries?.typeDelivery}
         value={`R$ ${deliveries?.value}`}
-        closeDeliveries={handleCloseDeliveries}
+        closeDeliveries={handleAcceptDeliveries}
         closeDeliveriesFinish={handleFinishDeliveries}
-        titleBtnFinish="Fechar"
+        titleBtnFinish="Recusar entrega"
         titleBtn="Aceitar entrega"
       />
     } else {
-      return <OrderListDeliveries
-        restaurantData="Nome do restaurante: -"
-        road="-"
-        district="-"
-        complement="-"
-        isCitySelected="-"
-        typeDeliveries="-"
-        value="R$ -"
-        closeDeliveries={handleCloseDeliveries}
-        titleBtn="Fechar"
-      />
+      return (
+        <VStack space={4} alignItems="center">
+          <Center>
+            <Icon as={<IconMoto />} mt={4} />
+            <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+              Ser motoqueiro é muito mais {"\n"}
+              do que ter uma moto!
+            </Text>
+          </Center>
+        </VStack>
+      );
     }
   }
 
@@ -176,7 +193,6 @@ export function HomeMotoboy({ route }: any) {
         />
 
         {isDeliveries ?
-          // todo se tiver deliverie mostrar orderList com dados do firebase se nao tiver deliveries mostrar dados vazios
           handleIsDeliveries()
           : 
           <VStack space={4} alignItems="center">  

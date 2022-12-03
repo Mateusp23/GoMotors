@@ -58,6 +58,7 @@ export function SignIn() {
                 status
               }
               setUser(userData);
+              setIsLoading(false);
           
               if (selectTypeUser === 'motoboy') {
                 navigation.navigate('homeMotoboy', { userData });

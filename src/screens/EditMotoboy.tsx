@@ -23,15 +23,16 @@ type RouteParams = {
 
 export function EditMotoboy({ route }: any) {
   const params = route?.params as RouteParams;
-  const [details, setDetails] = useState<Details>({} as Details);
   const [isLoading, setIsLoading] = useState(true);
+  const [details, setDetails] = useState<Details>({} as Details);
   const [userId, setUserId] = useState('');
-  const [status, setStatus] = useState(details?.status);
+  
+  const [status, setStatus] = useState("");
+  const [deliveries, setDeliveries] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pix, setPix] = useState("");
+  const [experience, setExperience] = useState("");
 
-  const [deliveries, setDeliveries] = useState('');
-  const [phone, setPhone] = useState('');
-  const [pix, setPix] = useState('');
-  const [experience, setExperience] = useState('');
   const navigation = useNavigation();
   const { colors } = useTheme();
 
@@ -80,10 +81,14 @@ export function EditMotoboy({ route }: any) {
           pix,
           experience,
         });
+        setDeliveries(deliveries);
+        setPhone(phone);
+        setPix(pix);
+        setExperience(experience);
+        setStatus(status);
         setIsLoading(false);
       });
   }, [userId]);
-  console.log('details with status:', details.status)
 
   if (isLoading) {
     return <Loading />;

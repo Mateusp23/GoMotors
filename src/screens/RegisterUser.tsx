@@ -13,11 +13,11 @@ import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
 
 export function RegisterUser() {
-  const [deliveries, setDeliveries] = useState('');
-  const [phone, setPhone] = useState('');
-  const [pix, setPix] = useState('');
-  const [experience, setExperience] = useState('');
-  const [status, setStatus] = useState('');
+  const [deliveries, setDeliveries] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pix, setPix] = useState("");
+  const [experience, setExperience] = useState("");
+  const [status, setStatus] = useState("Disponivel");
 
   const [road, setRoad] = useState("");
   const [district, setDistrict] = useState("");
@@ -163,6 +163,7 @@ export function RegisterUser() {
 
           <Select
             selectedValue={status}
+            defaultValue={status}
             minWidth="200"
             accessibilityLabel="Selecione seu status"
             placeholder="Selecione seu status"
@@ -178,7 +179,6 @@ export function RegisterUser() {
             onValueChange={(itemValue) => setStatus(itemValue)}
           >
             <Select.Item shadow={1} label="Disponível" value="Disponível" />
-            <Select.Item shadow={1} label="Em entrega" value="Em entrega" />
           </Select>
 
           {RenderData()}       

@@ -79,6 +79,10 @@ export function EditRestaurant({ route }: any) {
           complement,
           description,
         });
+        setRoad(road);
+        setDistrict(district);
+        setComplement(complement);
+        setDescription(description);
         setIsLoading(false);
       });
   }, [userId]);

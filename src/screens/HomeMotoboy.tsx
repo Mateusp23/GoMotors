@@ -20,10 +20,14 @@ type Deliveries = {
   isCitySelected: string;
   typeDelivery: string;
   complement: string;
-  nameRestaurant: string;
+  nameRestaurant: NameRestaurantProps;
   value: string;
   date: string;
 };
+
+type NameRestaurantProps = {
+  name: string;
+}
 
 export function HomeMotoboy({ route }: any) {
   const [isLoading, setIsLoading] = useState(false);

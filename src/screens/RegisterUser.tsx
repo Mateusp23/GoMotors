@@ -2,9 +2,10 @@ import auth from "@react-native-firebase/auth";
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from "@react-navigation/native";
 import {
-  ScrollView,
+  Icon, IconButton, ScrollView,
   Select, useTheme, VStack
 } from "native-base";
+import { Eye, EyeSlash } from "phosphor-react-native";
 import React, { useEffect, useState } from "react";
 
 import { Alert } from "react-native";
@@ -18,6 +19,7 @@ export function RegisterUser() {
   const [pix, setPix] = useState("");
   const [experience, setExperience] = useState("");
   const [status, setStatus] = useState("Disponivel");
+  const [showPassword, setShowPassword] = useState(true);
 
   const [road, setRoad] = useState("");
   const [district, setDistrict] = useState("");
@@ -81,6 +83,11 @@ export function RegisterUser() {
         setIsLoading(false);
       });
   }
+
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
   
   const RenderData = () => {
     return (
@@ -119,7 +126,11 @@ export function RegisterUser() {
         <Input
           mb={4}
           placeholder="Senha"
-          secureTextEntry
+          InputRightElement={<IconButton
+            onPress={handleShowPassword}
+            icon={
+              <Icon as={showPassword ? <Eye color={colors.gray[300]} /> : <EyeSlash color={colors.gray[300]} />} mr={4} />} />}
+          secureTextEntry={showPassword}
           onChangeText={setPassword}
         />
         <Button

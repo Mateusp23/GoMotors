@@ -3,9 +3,9 @@ import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from "@react-navigation/native";
 
 import {
-  Button as ButtonNative, Heading, HStack, Icon, Text, useTheme, VStack
+  Button as ButtonNative, Heading, HStack, Icon, IconButton, Text, useTheme, VStack
 } from "native-base";
-import { Envelope, Key } from "phosphor-react-native";
+import { Envelope, Eye, EyeSlash, Key } from "phosphor-react-native";
 
 import React, { useState } from "react";
 import { Alert } from "react-native";
@@ -24,6 +24,7 @@ type User = {
 export function SignIn() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { colors } = useTheme();
@@ -103,6 +104,10 @@ export function SignIn() {
       .catch((error) => console.log(error));
   }
 
+  function handleShowPassword() {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
       <Logo />
@@ -123,7 +128,11 @@ export function SignIn() {
         mb={8}
         placeholder="Senha"
         InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}
-        secureTextEntry
+        InputRightElement={<IconButton
+          onPress={handleShowPassword}
+          icon={
+            <Icon as={showPassword ? <Eye color={colors.gray[300]} /> : <EyeSlash color={colors.gray[300]} />} mr={4} />} />}
+        secureTextEntry={showPassword}
         onChangeText={setPassword}
       />
 

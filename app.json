@@ -16,6 +16,11 @@
     "ios": {
       "bundleIdentifier": "com.mateuspp.gomotors",
       "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "12458015-8133-44c4-906c-3ccdb7d01dec"
+      }
     }
   }
 }

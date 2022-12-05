@@ -54,6 +54,8 @@ export function HomeMotoboy({ route }: any) {
         Alert.alert('Status', 'Erro ao aceitar entrega.');
         console.log(error);
       });
+    setDeliveries(null);
+    setIsLoading(false);
   }
 
   const handleFinishDeliveries = () => {
@@ -128,7 +130,6 @@ export function HomeMotoboy({ route }: any) {
         );
       });    
     console.log(deliveries);
-    
   }
 
   const handleIsDeliveries = () => {
@@ -150,7 +151,7 @@ export function HomeMotoboy({ route }: any) {
       return (
         <VStack space={4} alignItems="center">
           <Center>
-            <Icon as={<IconMoto />} mt={4} />
+            <Icon as={<IconMoto />} mt={8} />
             <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
               Ser motoqueiro é muito mais {"\n"}
               do que ter uma moto!
@@ -187,7 +188,6 @@ export function HomeMotoboy({ route }: any) {
 
         <Button
           mt={2}
-          mb={2}
           title='Ver entrega'
           bgColor="primary.700"
           color="white"
@@ -196,6 +196,15 @@ export function HomeMotoboy({ route }: any) {
           onPress={handleShowDeliveries}
         />
 
+        <Button
+          title="Editar Perfil"
+          bgColor="gray.600"
+          color="primary.700"
+          bg="gray.700"
+          mt={2}
+          mb={2}
+          onPress={handleNewScreen}
+        />
         {isDeliveries ?
           handleIsDeliveries()
           : 
@@ -209,16 +218,6 @@ export function HomeMotoboy({ route }: any) {
             </Center>
           </VStack>
         }
-
-        <Button
-          title="Editar"
-          bgColor="gray.600"
-          color="primary.700"
-          bg="gray.700"
-          mt={16}
-          mb={5}
-          onPress={handleNewScreen}
-        />
       </VStack>
     </VStack>
   );

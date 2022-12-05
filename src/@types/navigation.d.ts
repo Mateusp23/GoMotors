@@ -9,6 +9,7 @@ export declare global {
           id: string,
           name: string,
           selectTypeUser: string,
+          status: string;
       } };
       homeRestaurant: {
         userData: {

@@ -16,11 +16,11 @@ export function Splash() {
       <Logo />
 
       <Heading mt={12} color="white">Bem vindo(a) ao GoMotors</Heading>
-      <Text mt={4} textAlign="center" color="white"fontSize="md">App para auxiliar motoboys e restaurantes em suas entregas</Text>
+      <Text mt={4} textAlign="center" color="white"fontSize="md">Aplicativo para auxiliar motoboys e restaurantes em suas entregas</Text>
     
       <Button
         mt={10}
-        title="Acessar"
+        title="Iniciar"
         bgColor="gray.600"
         color="primary.700"
         w="full"

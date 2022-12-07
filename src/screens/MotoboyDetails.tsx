@@ -7,6 +7,7 @@ import { Alert } from "react-native";
 import { Button } from "../components/Button";
 import { Input } from "../components/Forms/Input";
 import { Header } from "../components/Header";
+import { Loading } from '../components/Loading';
 
 type RouteParams = {
   orderIdMotoboy: string;
@@ -131,6 +132,10 @@ export function MotoboyDetails() {
       });
     }, []);
 
+  if (isLoading) {
+    return <Loading />
+  }
+  
   return (
     <VStack flex={1} p={5} bg="gray.700">
       <ScrollView bg="gray.700" w="full" showsVerticalScrollIndicator={false}>

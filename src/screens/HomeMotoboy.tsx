@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from "@react-navigation/native";
 import {
-  Center, HStack, Icon, Text, VStack
+  Center, HStack, Icon, ScrollView, Text, VStack
 } from "native-base";
 import React, { useState } from "react";
 import { Alert } from 'react-native';
@@ -54,6 +54,7 @@ export function HomeMotoboy({ route }: any) {
         Alert.alert('Status', 'Erro ao aceitar entrega.');
         console.log(error);
       });
+    handleCloseDeliveries();
     setDeliveries(null);
     setIsLoading(false);
   }
@@ -85,6 +86,19 @@ export function HomeMotoboy({ route }: any) {
     ]);
   }
 
+  const handleCloseDeliveries = () => {
+    firestore()
+      .collection('deliveries')
+      .doc(params?.userData.id)
+      .delete()
+      .then(() => {
+        setIsDeliveries(false);
+        setDeliveries(null);
+      }).catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  }
+  
   const handleNewScreen = () => {
     navigation.navigate("editMotoboy", { id: params.userData?.id });
   };
@@ -134,19 +148,23 @@ export function HomeMotoboy({ route }: any) {
 
   const handleIsDeliveries = () => {
     if (deliveries) {
-      return <OrderListDeliveries
-        restaurantData={deliveries?.nameRestaurant?.name}
-        road={deliveries?.road}
-        district={deliveries?.district}
-        complement={deliveries?.complement}
-        isCitySelected={deliveries?.isCitySelected}
-        typeDeliveries={deliveries?.typeDelivery}
-        value={`R$ ${deliveries?.value}`}
-        closeDeliveries={handleAcceptDeliveries}
-        closeDeliveriesFinish={handleFinishDeliveries}
-        titleBtnFinish="Recusar entrega"
-        titleBtn="Aceitar entrega"
-      />
+      return (
+        <ScrollView>
+          <OrderListDeliveries
+            restaurantData={deliveries?.nameRestaurant?.name}
+            road={deliveries?.road}
+            district={deliveries?.district}
+            complement={deliveries?.complement}
+            isCitySelected={deliveries?.isCitySelected}
+            typeDeliveries={deliveries?.typeDelivery}
+            value={`R$ ${deliveries?.value}`}
+            closeDeliveries={handleAcceptDeliveries}
+            closeDeliveriesFinish={handleFinishDeliveries}
+            titleBtnFinish="Recusar entrega"
+            titleBtn="Aceitar entrega"
+            />
+        </ScrollView>
+      )
     } else {
       return (
         <VStack space={4} alignItems="center">

@@ -1,4 +1,4 @@
-# Workout 🛵🛵🏼
+# Workout 🛵🛵
 
 > Status: App finished ☑️
 

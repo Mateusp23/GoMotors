@@ -1,21 +1,42 @@
-# GoMotors 🛵🛵
+# GoMotors 🛵🛵  
 
-Aplicativo para auxiliar motoboys e restaurantes em suas entregas 📦🏍
+Aplicativo desenvolvido para conectar motoboys e estabelecimentos em um único lugar, facilitando a gestão de entregas e otimizando o processo de contratação de motoboys 📦🏍  
 
-> Status: In progress 🛠️
+> Status: In progress 🛠️  
 
-## 🧪 Tecnologias usadas
+## 🧪 Tecnologias usadas  
 
-<img alt="Firebase" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png?hl=pt-br" width="60px"> <img alt="Figma" src="https://cdn.shopify.com/s/files/1/0284/7024/7555/products/figma2x_1048x.png?v=1591893627" width="80px">
+<img alt="Firebase" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-vertical.png?hl=pt-br" width="60px"> <img alt="Figma" src="https://cdn.shopify.com/s/files/1/0284/7024/7555/products/figma2x_1048x.png?v=1591893627" width="80px">  
 
-## 💻 Sobre o Projeto
+- **React Native** com **Expo**  
+- **Native Base** para componentes de UI  
+- **Firebase** para autenticação e banco de dados  
+- **Context API** para gerenciamento de estado  
 
-O app consiste em uma tela inicial de apresentação, uma especie de boas vindas, logo depois uma tela de login onde o usuário coloca seu email e senha, caso não esteja cadastrado ele é direcionado para a tela de cadastro na qual realiza seu cadastro e informa seus dados, após é efetuado o login e direcionado para tela principal sendo um usuário motoboy ou restaurante. 
+## 💻 Sobre o Projeto  
 
-Na tela do usuário restaurante o mesmo poderá editar seu perfil, escolher um usuário motoboy podendo ver qual seu status, amarelo para Em entrega e verde para Disponivel, acessando o motoboy desejado, o restaurante acessa os dados do motoboy e pode abaixo preencher os campos para enviar uma nova entrega ao motoboy.
+Muitos motoboys enfrentam dificuldades para gerenciar suas entregas e os estabelecimentos encontram desafios para localizar entregadores disponíveis rapidamente. O **GoMotors** foi criado para resolver esses problemas, reunindo tudo em um único aplicativo, conectando motoboys e restaurantes de forma simples e eficiente.  
 
-Na tela do usuário motoboy o mesmo poderá editar seu perfil, alterar seu status e consultar entrega, após ter uma entrega cadastrada, o motoboy verá os detalhes da entrega e poderá aceita-lá, se for aceita seu status mudará para Em entrega, caso não aceite a entrega é cancelada.
+### 🔄 Fluxo do Aplicativo  
 
-<br>
+- **Tela inicial** → Apresentação de boas-vindas  
+- **Login e Cadastro** → Usuário insere e-mail e senha ou realiza cadastro informando dados pessoais e tipo de usuário (motoboy ou restaurante)  
+- **Tela principal** → Direciona o usuário para as funcionalidades específicas:  
 
-### performed by [Mateusp23](https://mateusp23.github.io/linktree/) 👨‍💻📲
+#### 👨‍🍳 Para Restaurantes:  
+- Editar perfil  
+- Visualizar lista de motoboys e seus status:  
+  - 🟡 **Em entrega**  
+  - 🟢 **Disponível**  
+- Acessar dados de motoboys e enviar solicitações de entrega  
+
+#### 🛵 Para Motoboys:  
+- Editar perfil  
+- Alterar status de disponibilidade  
+- Consultar entregas recebidas  
+- Visualizar detalhes e aceitar ou recusar entregas  
+- Ao aceitar, status muda automaticamente para **Em entrega**; caso recuse, a entrega é cancelada  
+
+---
+
+### 👨‍💻 Desenvolvido por [Mateusp23](https://www.linkedin.com/in/mateusp23/) 📲  
